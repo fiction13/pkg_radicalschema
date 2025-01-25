@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ @package   RadicalSchema
+  ~ @version   __DEPLOY_VERSION__
+  ~ @author    Dmitriy Vasyukov - https://fictionlabs.ru
+  ~ @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+  ~ @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+  ~ @link      https://fictionlabs.ru/
+  -->
+
+<form addfieldprefix="Joomla\Plugin\System\RadicalSchema\Field">
+    <fieldset name="standard" label="PLG_SYSTEM_RADICALSCHEMA_FIELDSET_STANDARD">
+        <field name="standard_enable"
+               type="radio"
+               default="0"
+               class="btn-group"
+               label="COM_RADICALSCHEMA_PARAM_ENABLE"
+               layout="joomla.form.field.radio.switcher"
+               description="COM_RADICALSCHEMA_PARAM_ENABLE_DESC">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
+        <field name="standard_title" type="list"
+               label="PLG_RADICALSCHEMA_STANDARD_PARAM_TITLE"
+               size="1"
+               default="description"
+               showon="standard_enable:1">
+            <option value="none">PLG_RADICALSCHEMA_STANDARD_PARAM_TITLE_NONE</option>
+            <option value="title">PLG_RADICALSCHEMA_STANDARD_PARAM_TITLE_PAGE</option>
+        </field>
+
+        <field name="standard_description" type="list"
+               label="PLG_RADICALSCHEMA_STANDARD_PARAM_DESCRIPTION"
+               size="1"
+               default="description"
+               showon="standard_enable:1">
+            <option value="none">PLG_RADICALSCHEMA_STANDARD_PARAM_DESCRIPTION_NONE</option>
+            <option value="description">PLG_RADICALSCHEMA_STANDARD_PARAM_DESCRIPTION_PAGE</option>
+        </field>
+
+        <field name="standard_image_choice" type="list"
+               label="PLG_RADICALSCHEMA_STANDARD_PARAM_IMAGE_CHOICE"
+               size="1"
+               default="static"
+               showon="standard_enable:1">
+            <option value="none">PLG_RADICALSCHEMA_STANDARD_PARAM_IMAGE_CHOICE_NONE</option>
+            <option value="static">PLG_RADICALSCHEMA_STANDARD_PARAM_IMAGE_CHOICE_STATIC</option>
+            <option value="body">PLG_RADICALSCHEMA_STANDARD_PARAM_IMAGE_CHOICE_BODY</option>
+        </field>
+
+        <field name="standard_image" type="media"
+               default=""
+               label="PLG_RADICALSCHEMA_STANDARD_PARAM_IMAGE"
+               showon="standard_image_choice:static[AND]standard_enable:1"
+        />
+
+        <field name="standard_site_name" type="text"
+               label="PLG_RADICALSCHEMA_STANDARD_PARAM_SITE_NAME"
+               default=""
+               showon="standard_enable:1"
+        />
+
+        <field name="standard_locale"
+               type="radio"
+               default="0"
+               class="btn-group btn-group-yesno"
+               label="PLG_RADICALSCHEMA_STANDARD_PARAM_LOCALE"
+               showon="standard_enable:1">
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+
+        <field name="standard_site" type="text"
+               label="PLG_RADICALSCHEMA_STANDARD_PARAM_SITE"
+               default=""
+               showon="standard_enable:1"
+        />
+
+        <field name="standard_creator" type="text"
+               label="PLG_RADICALSCHEMA_STANDARD_PARAM_CREATOR"
+               default=""
+               showon="standard_enable:1"
+        />
+    </fieldset>
+</form>

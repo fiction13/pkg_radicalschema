@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ @package   RadicalSchema
+  ~ @version   __DEPLOY_VERSION__
+  ~ @author    Dmitriy Vasyukov - https://fictionlabs.ru
+  ~ @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+  ~ @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+  ~ @link      https://fictionlabs.ru/
+  -->
+
+<form>
+    <fields name="params" addfieldprefix="Joomla\Component\RadicalSchema\Administrator\Field">
+        <fieldset name="radicalschema" label="COM_RADICALSCHEMA_FIELDSET_GLOBAL_LABEL">
+            <fieldset name="radicalschema_schema" label="COM_RADICALSCHEMA_FIELDSET_SCHEMA_LABEL">
+                <field type="note"
+                       name="radicalschema_schema_menu_note"
+                       class="alert alert-info w-100"
+                       description="COM_RADICALSCHEMA_PARAM_NOTE_DESCRIPTION"
+                />
+
+                <field type="radicalschema_types"
+                       name="menu_type"
+                       default=""
+                       useglobal="true"
+                       onchange="Joomla.sendForm('item.apply');"
+                       label="PLG_RADICALSCHEMA_MENU_PARAM_SCHEMA_TYPE"
+                       showon="radicalschema_schema_enable:1"
+                >
+                </field>
+            </fieldset>
+
+            <fieldset name="radicalschema_meta" label="COM_RADICALSCHEMA_FIELDSET_META_LABEL">
+                <field type="note"
+                       name="radicalschema_meta_menu_note"
+                       class="alert alert-info w-100"
+                       description="COM_RADICALSCHEMA_PARAM_NOTE_DESCRIPTION"
+                />
+            </fieldset>
+        </fieldset>
+    </fields>
+</form>

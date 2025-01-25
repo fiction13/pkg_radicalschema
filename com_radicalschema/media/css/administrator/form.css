@@ -1,0 +1,22 @@
+/*!
+ * @package   RadicalSchema
+ * @version   __DEPLOY_VERSION__
+ * @author    Dmitriy Vasyukov - https://fictionlabs.ru
+ * @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+ * @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+ * @link      https://fictionlabs.ru/
+ */
+#attrib-radicalschema[active] {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2vw;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+@media (max-width: 769px) {
+  #attrib-radicalschema {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3NzL2FkbWluaXN0cmF0b3IvZm9ybS5jc3MiLCJtYXBwaW5ncyI6IkFBQUE7Ozs7Ozs7RUFBQTtBQVNBO0VBQ0k7RUFDQTtFQUNBO0VBQ0E7QUFBSjs7QUFHQTtFQUNJO0lBQ0k7RUFBTjtBQUNGLEMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9yYWRpY2Fsc2NoZW1hL2NvbV9yYWRpY2Fsc2NoZW1hL3Njc3MvYWRtaW5pc3RyYXRvci9mb3JtLnNjc3MiXSwic291cmNlc0NvbnRlbnQiOlsiLyohXG4gKiBAcGFja2FnZSAgIFJhZGljYWxTY2hlbWFcbiAqIEB2ZXJzaW9uICAgX19ERVBMT1lfVkVSU0lPTl9fXG4gKiBAYXV0aG9yICAgIERtaXRyaXkgVmFzeXVrb3YgLSBodHRwczovL2ZpY3Rpb25sYWJzLnJ1XG4gKiBAY29weXJpZ2h0IENvcHlyaWdodCAoYykgMjAyNSBGaWN0aW9ubGFicy4gQWxsIHJpZ2h0cyByZXNlcnZlZC5cbiAqIEBsaWNlbnNlICAgR05VL0dQTCBsaWNlbnNlOiBodHRwOi8vd3d3LmdudS5vcmcvY29weWxlZnQvZ3BsLmh0bWxcbiAqIEBsaW5rICAgICAgaHR0cHM6Ly9maWN0aW9ubGFicy5ydS9cbiAqL1xuXG4jYXR0cmliLXJhZGljYWxzY2hlbWFbYWN0aXZlXSB7XG4gICAgZGlzcGxheTogZ3JpZDtcbiAgICBncmlkLXRlbXBsYXRlLWNvbHVtbnM6IHJlcGVhdCgyLCAxZnIpOztcbiAgICBnYXA6IDJ2dztcbiAgICBncmlkLWF1dG8tcm93czogbWlubWF4KDEwMHB4LCBhdXRvKTtcbn1cblxuQG1lZGlhIChtYXgtd2lkdGg6IDc2OXB4KSB7XG4gICAgI2F0dHJpYi1yYWRpY2Fsc2NoZW1hIHtcbiAgICAgICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMSwgMWZyKTtcbiAgICB9XG59Il0sIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiJ9*/

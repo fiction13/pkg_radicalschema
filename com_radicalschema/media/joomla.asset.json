@@ -1,0 +1,55 @@
+{
+    "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+    "name": "com_radicalschema",
+    "version": "0.0.1-dev",
+    "description": "E-commerce solution for Joomla! CMS ™",
+    "license": "GPL-3.0-or-later",
+    "assets": [
+        {
+            "name": "com_radicalschema.administrator.config",
+            "type": "script",
+            "uri": "com_radicalschema/administrator/config.js",
+            "version": "auto"
+        },
+        {
+            "name": "com_radicalschema.administrator.config",
+            "type": "style",
+            "uri": "com_radicalschema/administrator/config.min.css",
+            "version": "auto"
+        },
+        {
+            "name": "com_radicalschema.administrator.form",
+            "type": "script",
+            "uri": "com_radicalschema/administrator/form.js",
+            "version": "auto"
+        },
+        {
+            "name": "com_radicalschema.administrator.field.mapping",
+            "type": "script",
+            "uri": "com_radicalschema/administrator/field/mapping.js",
+            "version": "auto"
+        },
+        {
+            "name": "com_radicalschema.administrator.form",
+            "type": "style",
+            "uri": "com_radicalschema/administrator/form.min.css",
+            "version": "auto"
+        },
+        {
+            "name": "com_radicalschema.administrator.config",
+            "type": "preset",
+            "dependencies": [
+                "com_radicalschema.administrator.config#style",
+                "com_radicalschema.administrator.config#script"
+            ]
+        },
+        {
+            "name": "com_radicalschema.administrator.form",
+            "type": "preset",
+            "dependencies": [
+                "com_radicalschema.administrator.form#style",
+                "com_radicalschema.administrator.form#script"
+            ]
+        }
+    ]
+}

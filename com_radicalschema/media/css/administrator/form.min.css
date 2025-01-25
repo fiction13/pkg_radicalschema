@@ -1,0 +1,8 @@
+/*!
+ * @package   RadicalSchema
+ * @version   __DEPLOY_VERSION__
+ * @author    Dmitriy Vasyukov - https://fictionlabs.ru
+ * @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+ * @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+ * @link      https://fictionlabs.ru/
+ */#attrib-radicalschema[active]{display:grid;grid-template-columns:repeat(2, 1fr);gap:2vw;grid-auto-rows:minmax(100px, auto)}@media(max-width: 769px){#attrib-radicalschema{grid-template-columns:repeat(1, 1fr)}}

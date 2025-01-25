@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ @package   RadicalSchema
+  ~ @version   __DEPLOY_VERSION__
+  ~ @author    Dmitriy Vasyukov - https://fictionlabs.ru
+  ~ @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+  ~ @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+  ~ @link      https://fictionlabs.ru/
+  -->
+
+<extension type="package" version="4.2" method="upgrade">
+ 	<name>PKG_RADICALSCHEMA</name>
+    <author>Dmitriy Vasyukov</author>
+    <creationDate>December 2022</creationDate>
+    <authorEmail>info@fictionlabs.ru</authorEmail>
+    <authorUrl>https://fictionlabs.ru</authorUrl>
+    <packagename>radicalschema</packagename>
+    <version>0.0.1-dev</version>
+    <description>PKG_RADICALSCHEMA_DESCRIPTION</description>
+    <scriptfile>script.php</scriptfile>
+
+    <!-- Languages files -->
+    <languages folder="language">
+		<language tag="en-GB">en-GB/pkg_radicalschema.sys.ini</language>
+		<language tag="ru-RU">ru-RU/pkg_radicalschema.sys.ini</language>
+	</languages>
+
+    <!-- Package files -->
+    <files>
+        <folder type="component" id="radicalschema">com_radicalschema</folder>
+        <folder type="plugin" group="radicalschema" id="radicalschema">plg_radicalschema_content</folder>
+        <folder type="plugin" group="radicalschema" id="radicalschema">plg_radicalschema_menu</folder>
+        <folder type="plugin" group="radicalschema" id="radicalschema">plg_radicalschema_standard</folder>
+        <folder type="plugin" group="radicalschema" id="radicalschema">plg_radicalschema_image</folder>
+        <folder type="plugin" group="system" id="radicalschema">plg_system_radicalschema</folder>
+    </files>
+
+    <!--  Update server  -->
+    <updateservers>
+        <server type="extension" name="RadicalSchema Package" priority="1">
+            https://sovmart.ru/update?element=pkg_radicalschema
+        </server>
+    </updateservers>
+</extension>

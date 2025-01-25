@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ @package   RadicalSchema
+  ~ @version   __DEPLOY_VERSION__
+  ~ @author    Dmitriy Vasyukov - https://fictionlabs.ru
+  ~ @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+  ~ @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+  ~ @link      https://fictionlabs.ru/
+  -->
+
+<extension type="plugin" version="5.2" group="radicalschema" method="upgrade">
+    <name>PLG_RADICALSCHEMA_IMAGE</name>
+    <creationDate>December 2022</creationDate>
+    <author>Dmitriy Vasyukov</author>
+    <copyright>Copyright (C) 2005 - 2022 Open Source Matters. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>info@fictionlabs.ru</authorEmail>
+    <authorUrl>https://fictionlabs.ru</authorUrl>
+    <version>0.0.1-dev</version>
+    <description>PLG_RADICALSCHEMA_IMAGE_DESCRIPTION</description>
+    <scriptfile>script.php</scriptfile>
+    <namespace path="src">Joomla\Plugin\RadicalSchema\Image</namespace>
+
+    <!-- Language files -->
+    <languages folder="language">
+        <language tag="en-GB">en-GB/plg_radicalschema_image.ini</language>
+        <language tag="en-GB">en-GB/plg_radicalschema_image.sys.ini</language>
+        <language tag="ru-RU">ru-RU/plg_radicalschema_image.ini</language>
+        <language tag="ru-RU">ru-RU/plg_radicalschema_image.sys.ini</language>
+    </languages>
+
+    <!-- Plugin files -->
+    <files>
+        <folder>forms</folder>
+        <folder plugin="image">src</folder>
+        <folder>language</folder>
+        <folder>services</folder>
+    </files>
+
+    <!-- Plugin media -->
+    <media folder="media" destination="plg_radicalschema_image">
+        <folder>fonts</folder>
+        <folder>images</folder>
+    </media>
+
+    <!-- Config parameter -->
+    <config>
+
+    </config>
+</extension>

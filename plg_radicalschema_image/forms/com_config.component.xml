@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ @package   RadicalSchema
+  ~ @version   __DEPLOY_VERSION__
+  ~ @author    Dmitriy Vasyukov - https://fictionlabs.ru
+  ~ @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+  ~ @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+  ~ @link      https://fictionlabs.ru/
+  -->
+
+<form addfieldprefix="Joomla\Plugin\System\RadicalSchema\Field">
+    <fieldset name="image" label="PLG_RADICALSCHEMA_RADICALSCHEMA_FIELDSET_IMAGE">
+        <fieldset name="image_basic" addfieldprefix="Joomla\Plugin\System\RadicalSchema\Field"
+                  label="PLG_RADICALSCHEMA_RADICALSCHEMA_FIELDSET_IMAGE_BASIC">
+            <field name="image_enable"
+                   type="radio"
+                   default="0"
+                   class="btn-group"
+                   label="COM_RADICALSCHEMA_PARAM_ENABLE"
+                   layout="joomla.form.field.radio.switcher"
+                   description="COM_RADICALSCHEMA_PARAM_ENABLE_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field
+                    name="image_imagetype_generate_cache"
+                    type="list"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_CACHE"
+                    size="1"
+                    default="cache"
+                    layout="joomla.form.field.list-fancy-select"
+                    showon="image_enable:1">
+                <option value="images">PLG_RADICALSCHEMA_IMAGE_PARAM_CACHE_IMAGES</option>
+                <option value="cache">PLG_RADICALSCHEMA_IMAGE_PARAM_CACHE_CACHE</option>
+            </field>
+
+            <field name="image_imagetype_generate_cache_subfolder" type="radio" default="0"
+                   class="btn-group btn-group-yesno"
+                   label="PLG_RADICALSCHEMA_IMAGE_PARAM_CACHE_SUBFOLDER"
+                   description="PLG_RADICALSCHEMA_IMAGE_PARAM_CACHE_SUBFOLDER_DESC"
+                   showon="image_enable:1">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field
+                    name="image_imagetype_generate_image_for_error"
+                    type="media"
+                    default=""
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_IMAGE_FOR_ERROR"
+                    description="PLG_RADICALSCHEMA_IMAGE_PARAM_IMAGE_FOR_ERROR_DESC"
+                    showon="image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_secret_key"
+                    type="hidden"
+            />
+        </fieldset>
+
+        <fieldset name="image_image" label="PLG_RADICALSCHEMA_RADICALSCHEMA_FIELDSET_IMAGE_GENERATION">
+            <field type="note"
+                   name="image_image_note"
+                   class="alert alert-info w-100"
+                   label="PLG_RADICALSCHEMA_IMAGE_PARAM_NOTE_ENABLE"
+                   description="PLG_RADICALSCHEMA_IMAGE_PARAM_NOTE_ENABLE_DESC"
+                   showon="image_enable!:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_position"
+                    type="list"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_POSITION"
+                    size="1"
+                    default="bottom"
+                    layout="joomla.form.field.list-fancy-select"
+                    showon="image_enable:1">
+                <option value="top">PLG_RADICALSCHEMA_IMAGE_PARAM_POSITION_TOP</option>
+                <option value="center">PLG_RADICALSCHEMA_IMAGE_PARAM_POSITION_MIDDLE</option>
+                <option value="bottom">PLG_RADICALSCHEMA_IMAGE_PARAM_POSITION_BOTTOM</option>
+            </field>
+
+            <field
+                    name="image_imagetype_generate_background"
+                    type="list"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND"
+                    size="1"
+                    layout="joomla.form.field.list-fancy-select"
+                    default="fill"
+                    showon="image_enable:1">
+                <option value="fill">PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_FILL</option>
+                <option value="static">PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_STATIC</option>
+            </field>
+
+            <field
+                    name="image_imagetype_generate_background_width"
+                    type="number"
+                    min="0" default="1200"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_WIDTH"
+                    showon="image_imagetype_generate_background:fill[AND]image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_height"
+                    type="number"
+                    min="0" default="630"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_HEIGHT"
+                    showon="imagetype_generate_background:fill[AND]image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_color"
+                    type="color"
+                    default="#000"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_COLOR"
+                    description=""
+                    showon="image_imagetype_generate_background:fill[AND]image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_image"
+                    type="media"
+                    default=""
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_IMAGE"
+                    description=""
+                    showon="image_imagetype_generate_background:static[AND]image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_text_background"
+                    type="color"
+                    default=""
+                    keywords="transparent"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_BACKGROUND"
+                    description=""
+                    showon="image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_text_color"
+                    type="color"
+                    default="#fff"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_COLOR"
+                    description=""
+                    showon="image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_text_font"
+                    type="text"
+                    default=""
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT"
+                    description="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT_DESC"
+                    showon="image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_text_fontsize"
+                    type="number"
+                    min="0" step="1" default="20"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT_SIZE"
+                    description=""
+                    showon="image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_text_margin"
+                    type="number"
+                    min="0" step="1" default="10"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_MARGIN"
+                    description=""
+                    showon="image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_text_padding"
+                    type="number"
+                    min="0" step="1" default="10"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_PADDING"
+                    description=""
+                    showon="image_enable:1"
+            />
+        </fieldset>
+    </fieldset>
+</form>

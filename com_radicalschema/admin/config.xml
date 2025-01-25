@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<!--
+  ~ @package   RadicalSchema
+  ~ @version   __DEPLOY_VERSION__
+  ~ @author    Dmitriy Vasyukov - https://fictionlabs.ru
+  ~ @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+  ~ @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+  ~ @link      https://fictionlabs.ru/
+  -->
+
+<config>
+    <fieldset name="global" label="COM_RADICALSCHEMA_FIELDSET_GLOBAL"
+              addfieldprefix="Joomla\Component\RadicalSchema\Administrator\Field">
+        <fieldset name="schema" label="COM_RADICALSCHEMA_FIELDSET_GLOBAL_SCHEMA">
+            <field name="schema_enable_type_website"
+                   type="radio"
+                   default="0"
+                   class="btn-group"
+                   layout="joomla.form.field.radio.switcher"
+                   label="COM_RADICALSCHEMA_PARAM_ENABLE_SCHEMA_TYPE_WEBSITE"
+                   description="COM_RADICALSCHEMA_PARAM_ENABLE_SCHEMA_TYPE_WEBSITE_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field name="schema_enable_type_organization"
+                   type="radio"
+                   default="0"
+                   class="btn-group"
+                   layout="joomla.form.field.radio.switcher"
+                   label="COM_RADICALSCHEMA_PARAM_ENABLE_SCHEMA_TYPE_ORGANIZATION"
+                   description="COM_RADICALSCHEMA_PARAM_ENABLE_SCHEMA_TYPE_ORGANIZATION_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field
+                    name="schema_type_organization_title"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_TITLE"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_TITLE_DESC"/>
+
+            <field
+                    name="schema_type_organization_image"
+                    type="media"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_IMAGE"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_IMAGE_DESC"/>
+
+            <field
+                    name="schema_type_organization_country"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_COUNTRY"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_COUNTRY_DESC"/>
+
+            <field
+                    name="schema_type_organization_locality"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_LOCALITY"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_LOCALITY_DESC"/>
+
+            <field
+                    name="schema_type_organization_region"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_REGION"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_REGION_DESC"/>
+
+            <field
+                    name="schema_type_organization_address"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_ADDRESS"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_ADDRESS_DESC"/>
+
+            <field
+                    name="schema_type_organization_code"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_CODE"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_CODE_DESC"/>
+
+            <field
+                    name="schema_type_organization_post"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_POST"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_POST_DESC"/>
+
+            <field
+                    name="schema_type_organization_map"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_MAP"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_MAP_DESC"/>
+
+            <field
+                    name="schema_type_organization_phone"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_PHONE"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_PHONE_DESC"/>
+
+            <field
+                    name="schema_type_organization_contact_type"
+                    type="text"
+                    default=""
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_CONTACT_TYPE"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_CONTACT_TYPE_DESC"/>
+
+            <field name="schema_enable_type_breadcrumblist"
+                   type="radio"
+                   default="0"
+                   class="btn-group"
+                   layout="joomla.form.field.radio.switcher"
+                   label="COM_RADICALSCHEMA_PARAM_ENABLE_SCHEMA_TYPE_BREADCRUMBLIST"
+                   description="COM_RADICALSCHEMA_PARAM_ENABLE_SCHEMA_TYPE_BREADCRUMBLIST_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+        </fieldset>
+        <fieldset name="meta" label="COM_RADICALSCHEMA_FIELDSET_GLOBAL_META"
+                  addfieldprefix="Joomla\Component\RadicalSchema\Administrator\Field">
+
+        </fieldset>
+        <fieldset name="extra" label="COM_RADICALSCHEMA_FIELDSET_GLOBAL_EXTRA">
+            <field name="extra_check_current"
+                   type="radio"
+                   default="1"
+                   class="btn-group"
+                   layout="joomla.form.field.radio.switcher"
+                   label="COM_RADICALSCHEMA_PARAM_EXTRA_CHECK_CURRENT"
+                   description="COM_RADICALSCHEMA_PARAM_EXTRA_CHECK_CURRENT_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field
+                    name="extra_insert_place"
+                    type="list"
+                    label="COM_RADICALSCHEMA_PARAM_EXTRA_INSERT_PLACE"
+                    layout="joomla.form.field.list-fancy-select"
+                    description="COM_RADICALSCHEMA_PARAM_EXTRA_INSERT_PLACE_DESC"
+                    size="1"
+                    default="head">
+                <option value="head">COM_RADICALSCHEMA_PARAM_EXTRA_INSERT_PLACE_HEAD</option>
+                <option value="body">COM_RADICALSCHEMA_PARAM_EXTRA_INSERT_PLACE_BODY</option>
+            </field>
+        </fieldset>
+    </fieldset>
+    <fieldset name="permissions"
+              label="JCONFIG_PERMISSIONS_LABEL"
+              description="JCONFIG_PERMISSIONS_DESC">
+
+        <field name="rules" type="rules"
+               label="JCONFIG_PERMISSIONS_LABEL"
+               class="inputbox"
+               validate="rules"
+               filter="rules"
+               component="com_radicalschema"
+               section="component"/>
+    </fieldset>
+</config>

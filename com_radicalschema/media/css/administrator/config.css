@@ -1,0 +1,31 @@
+/*!
+ * @package   RadicalSchema
+ * @version   __DEPLOY_VERSION__
+ * @author    Dmitriy Vasyukov - https://fictionlabs.ru
+ * @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+ * @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+ * @link      https://fictionlabs.ru/
+ */
+#attrib-radicalschema[active], joomla-tab-element[active] {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2vw;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+#sidebar, button[aria-controls=permissions] {
+  display: none;
+  visibility: hidden;
+}
+
+#config {
+  width: 100%;
+}
+
+@media (max-width: 769px) {
+  #attrib-radicalschema {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3NzL2FkbWluaXN0cmF0b3IvY29uZmlnLmNzcyIsIm1hcHBpbmdzIjoiQUFBQTs7Ozs7OztFQUFBO0FBU0E7RUFDSTtFQUNBO0VBQ0E7RUFDQTtBQUFKOztBQUdBO0VBQ0k7RUFDQTtBQUFKOztBQUdBO0VBQ0k7QUFBSjs7QUFHQTtFQUNJO0lBQ0k7RUFBTjtBQUNGLEMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9yYWRpY2Fsc2NoZW1hL2NvbV9yYWRpY2Fsc2NoZW1hL3Njc3MvYWRtaW5pc3RyYXRvci9jb25maWcuc2NzcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKiFcbiAqIEBwYWNrYWdlICAgUmFkaWNhbFNjaGVtYVxuICogQHZlcnNpb24gICBfX0RFUExPWV9WRVJTSU9OX19cbiAqIEBhdXRob3IgICAgRG1pdHJpeSBWYXN5dWtvdiAtIGh0dHBzOi8vZmljdGlvbmxhYnMucnVcbiAqIEBjb3B5cmlnaHQgQ29weXJpZ2h0IChjKSAyMDI1IEZpY3Rpb25sYWJzLiBBbGwgcmlnaHRzIHJlc2VydmVkLlxuICogQGxpY2Vuc2UgICBHTlUvR1BMIGxpY2Vuc2U6IGh0dHA6Ly93d3cuZ251Lm9yZy9jb3B5bGVmdC9ncGwuaHRtbFxuICogQGxpbmsgICAgICBodHRwczovL2ZpY3Rpb25sYWJzLnJ1L1xuICovXG5cbiNhdHRyaWItcmFkaWNhbHNjaGVtYVthY3RpdmVdLCBqb29tbGEtdGFiLWVsZW1lbnRbYWN0aXZlXSB7XG4gICAgZGlzcGxheTogZ3JpZCFpbXBvcnRhbnQ7XG4gICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiByZXBlYXQoMiwgMWZyKTs7XG4gICAgZ2FwOiAydnc7XG4gICAgZ3JpZC1hdXRvLXJvd3M6IG1pbm1heCgxMDBweCwgYXV0byk7XG59XG5cbiNzaWRlYmFyLCBidXR0b25bYXJpYS1jb250cm9scz1cInBlcm1pc3Npb25zXCJdIHtcbiAgICBkaXNwbGF5OiBub25lO1xuICAgIHZpc2liaWxpdHk6IGhpZGRlbjtcbn1cblxuI2NvbmZpZyB7XG4gICAgd2lkdGg6IDEwMCU7XG59XG5cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjlweCkge1xuICAgICNhdHRyaWItcmFkaWNhbHNjaGVtYSB7XG4gICAgICAgIGdyaWQtdGVtcGxhdGUtY29sdW1uczogcmVwZWF0KDEsIDFmcik7XG4gICAgfVxufSJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==*/

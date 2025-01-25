@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ @package   RadicalSchema
+  ~ @version   __DEPLOY_VERSION__
+  ~ @author    Dmitriy Vasyukov - https://fictionlabs.ru
+  ~ @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+  ~ @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+  ~ @link      https://fictionlabs.ru/
+  -->
+
+<extension version="5.2" type="component" method="upgrade">
+	<name>COM_RADICALSCHEMA</name>
+    <author>Dmitriy Vasyukov</author>
+    <creationDate>December 2023</creationDate>
+    <authorEmail>info@fictionlabs.ru</authorEmail>
+    <authorUrl>https://fictionlabs.ru</authorUrl>
+    <copyright>A copyright</copyright>
+    <license>GNU General Public License version 2 or later;</license>
+    <version>0.0.1-dev</version>
+    <description>COM_RADICALSCHEMA_DESCRIPTION</description>
+	<namespace path="src">Joomla\Component\RadicalSchema</namespace>
+	<scriptfile>script.php</scriptfile>
+
+	<!-- Admin files -->
+	<administration>
+		<files folder="admin">
+            <filename>config.xml</filename>
+            <folder>language</folder>
+            <folder>services</folder>
+            <folder>src</folder>
+        </files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/com_radicalschema.ini</language>
+			<language tag="en-GB">language/en-GB/com_radicalschema.sys.ini</language>
+			<language tag="ru-RU">language/ru-RU/com_radicalschema.ini</language>
+			<language tag="ru-RU">language/ru-RU/com_radicalschema.sys.ini</language>
+		</languages>
+	</administration>
+
+	<!-- Media files -->
+	<media destination="com_radicalschema" folder="media">
+		<folder>css</folder>
+		<folder>js</folder>
+		<filename>joomla.asset.json</filename>
+	</media>
+
+	<!-- Layouts files -->
+	<layouts destination="components/radicalschema" folder="layouts">
+		<folder>field</folder>
+	</layouts>
+</extension>

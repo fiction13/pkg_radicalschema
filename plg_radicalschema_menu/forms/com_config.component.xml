@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ @package   RadicalSchema
+  ~ @version   __DEPLOY_VERSION__
+  ~ @author    Dmitriy Vasyukov - https://fictionlabs.ru
+  ~ @copyright Copyright (c) 2025 Fictionlabs. All rights reserved.
+  ~ @license   GNU/GPL license: http://www.gnu.org/copyleft/gpl.html
+  ~ @link      https://fictionlabs.ru/
+  -->
+
+<form>
+    <fieldset name="menu" label="PLG_RADICALSCHEMA_MENU_FIELDSET_MENU"
+              addfieldprefix="Joomla\Component\RadicalSchema\Administrator\Field">
+        <fieldset name="menu_schema" label="COM_RADICALSCHEMA_FIELDSET_SCHEMA_LABEL">
+            <field name="menu_schema_enable"
+                   type="radio"
+                   default="0"
+                   class="btn-group"
+                   label="COM_RADICALSCHEMA_PARAM_ENABLE"
+                   layout="joomla.form.field.radio.switcher"
+                   description="COM_RADICALSCHEMA_PARAM_ENABLE_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field type="note"
+                   name="menu_schema_note"
+                   class="alert alert-info w-100"
+                   label="COM_RADICALSCHEMA_PARAM_SPACER_SCHEMA"
+                   description="COM_RADICALSCHEMA_PARAM_SPACER_SCHEMA_DESC"
+                   showon="menu_schema_enable:1"
+            />
+
+            <field type="radicalschema_types"
+                   name="menu_type"
+                   default=""
+                   onchange="Joomla.sendForm('component.apply');"
+                   label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE"
+                   showon="menu_schema_enable:1"
+            >
+            </field>
+        </fieldset>
+        <fieldset name="menu_meta" label="COM_RADICALSCHEMA_FIELDSET_META_LABEL">
+            <field name="menu_meta_enable"
+                   type="radio"
+                   default="0"
+                   class="btn-group"
+                   label="COM_RADICALSCHEMA_PARAM_ENABLE"
+                   layout="joomla.form.field.radio.switcher"
+                   description="COM_RADICALSCHEMA_PARAM_ENABLE_DESC">
+                <option value="0">JNO</option>
+                <option value="1">JYES</option>
+            </field>
+
+            <field type="note"
+                   name="menu_meta_note"
+                   class="alert alert-info w-100"
+                   label="COM_RADICALSCHEMA_PARAM_SPACER_META"
+                   description="COM_RADICALSCHEMA_PARAM_SPACER_META_DESC"
+                   showon="menu_meta_enable:1"
+            />
+        </fieldset>
+    </fieldset>
+</form>

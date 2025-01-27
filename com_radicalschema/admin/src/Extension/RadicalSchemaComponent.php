@@ -8,7 +8,7 @@
  * @link      https://fictionlabs.ru/
  */
 
-namespace Joomla\Component\Administrator\Extension;
+namespace Joomla\Component\RadicalSchema\Administrator\Extension;
 
 \defined('JPATH_PLATFORM') or die;
 

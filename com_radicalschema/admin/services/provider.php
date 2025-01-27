@@ -16,7 +16,7 @@ use Joomla\CMS\Extension\Service\Provider\ComponentDispatcherFactory;
 use Joomla\CMS\Extension\Service\Provider\MVCFactory;
 use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
-use Joomla\Component\Administrator\Extension\RadicalSchemaComponent;
+use Joomla\Component\RadicalSchema\Administrator\Extension\RadicalSchemaComponent;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 

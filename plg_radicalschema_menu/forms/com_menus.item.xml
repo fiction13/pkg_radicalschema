@@ -23,7 +23,7 @@
                        default=""
                        useglobal="true"
                        onchange="Joomla.sendForm('item.apply');"
-                       label="PLG_RADICALSCHEMA_MENU_PARAM_SCHEMA_TYPE"
+                       label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE"
                        showon="radicalschema_schema_enable:1"
                 >
                 </field>

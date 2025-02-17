@@ -91,6 +91,7 @@
                     showon="image_enable:1">
                 <option value="fill">PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_FILL</option>
                 <option value="static">PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_STATIC</option>
+                <option value="current">PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_CURRENT</option>
             </field>
 
             <field
@@ -98,7 +99,7 @@
                     type="number"
                     min="0" default="1200"
                     label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_WIDTH"
-                    showon="image_imagetype_generate_background:fill[AND]image_enable:1"
+                    showon="image_enable:1"
             />
 
             <field
@@ -106,7 +107,7 @@
                     type="number"
                     min="0" default="630"
                     label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_HEIGHT"
-                    showon="imagetype_generate_background:fill[AND]image_enable:1"
+                    showon="image_enable:1"
             />
 
             <field
@@ -116,6 +117,16 @@
                     label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_COLOR"
                     description=""
                     showon="image_imagetype_generate_background:fill[AND]image_enable:1"
+            />
+
+            <field
+                    name="image_imagetype_generate_background_overlay"
+                    type="color"
+                    default="rgba(0, 0, 0, 0.6)"
+                    format="rgba"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_OVERLAY_COLOR"
+                    description=""
+                    showon="image_imagetype_generate_background!:fill[AND]image_enable:1"
             />
 
             <field
@@ -148,17 +159,33 @@
 
             <field
                     name="image_imagetype_generate_background_text_font"
+                    type="filelist"
+                    directory="/media/plg_radicalschema_image/fonts"
+                    layout="joomla.form.field.list-fancy-select"
+                    hide_default="true"
+                    hide_none="true"
+                    default="Roboto-Black.ttf"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT"
+                    showon="image_enable:1"
+            >
+                <option value="custom">PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT_OPTION_CUSTOM</option>
+            </field>
+
+            <field
+                    name="image_imagetype_generate_background_text_font_custom"
                     type="text"
                     default=""
-                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT"
-                    description="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT_DESC"
-                    showon="image_enable:1"
+                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT_CUSTOM"
+                    description="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT_CUSTOM_DESC"
+                    showon="image_enable:1[AND]image_imagetype_generate_background_text_font:custom"
             />
 
             <field
                     name="image_imagetype_generate_background_text_fontsize"
                     type="number"
-                    min="0" step="1" default="20"
+                    min="0"
+                    step="1"
+                    default="30"
                     label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_FONT_SIZE"
                     description=""
                     showon="image_enable:1"
@@ -167,7 +194,8 @@
             <field
                     name="image_imagetype_generate_background_text_margin"
                     type="number"
-                    min="0" step="1" default="10"
+                    min="0" step="1"
+                    default="20"
                     label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_MARGIN"
                     description=""
                     showon="image_enable:1"
@@ -176,7 +204,8 @@
             <field
                     name="image_imagetype_generate_background_text_padding"
                     type="number"
-                    min="0" step="1" default="10"
+                    min="0" step="1"
+                    default="20"
                     label="PLG_RADICALSCHEMA_IMAGE_PARAM_BACKGROUND_TEXT_PADDING"
                     description=""
                     showon="image_enable:1"

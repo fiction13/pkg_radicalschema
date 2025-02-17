@@ -15,9 +15,13 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filesystem\Folder;
+use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Component\RadicalSchema\Administrator\Helper\ParamsHelper;
+use Joomla\Component\RadicalSchema\Administrator\Helper\PluginsHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\Tree\OGHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\ValueHelper;
+use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Language\LanguageHelper;
 use stdClass;
@@ -94,24 +98,29 @@ class ImageHelper
         }
 
         $title = $build['radicalschema.meta.og']->{'og:title'} ?? '';
+        $image = $build['radicalschema.meta.og']->{'og:image'} ?? '';
 
         if (empty($title))
         {
             return $this->showDefaultImage(false);
         }
 
-        $hash = md5(urlencode($title) . ':' . $fileName . ':' . $this->params->get('image_imagetype_generate_secret_key'));
+        $hash = md5($title . ':' . $fileName . ':' . $this->params->get('image_imagetype_generate_secret_key'));
+
+        // Save data
+        $this->setData($fileName, [
+            'title' => $title,
+            'image' => $image,
+        ]);
 
         return ValueHelper::prepareLink('/index.php?' . http_build_query([
                 'option' => 'com_ajax',
                 'group'  => 'radicalschema',
                 'plugin' => 'image',
                 'task'   => 'generate',
-                'title'  => urlencode($title),
                 'file'   => $fileName,
                 'hash'   => $hash,
                 'format' => 'raw',
-                'lang'   => $this->getCurrentLangSef()
             ])
         );
     }
@@ -119,7 +128,7 @@ class ImageHelper
     /**
      * Generate image
      *
-     * @return string
+     * @return void
      *
      * @since __DEPLOY_VERSION__
      */
@@ -127,12 +136,15 @@ class ImageHelper
     {
         // Check file
         $file  = $this->app->input->get('file', '', 'raw');
-        $title = $this->app->input->get('title', '', 'raw');
+        $data  = $this->getData($file);
+        $title = $data['title'] ?? false;
+        $image = $data['image'] ?? false;
         $hash  = $this->app->input->get('hash', '', 'raw');
 
         // Check hash, title and file
-        if ($hash != md5($title . ':' . $file . ':' . $this->params->get('image_imagetype_generate_secret_key')) || empty($title) || empty($file))
+        if ($hash !== md5($title . ':' . $file . ':' . $this->params->get('image_imagetype_generate_secret_key')) || empty($title) || empty($file))
         {
+            d(334);
             $this->showDefaultImage();
         }
 
@@ -144,10 +156,24 @@ class ImageHelper
             $this->app->redirect($local . '/' . $file . '.jpg');
         }
 
+
         // Check access on folder
         if (!is_writable($path))
         {
             $this->showDefaultImage();
+        }
+
+        // Trigger plugins for generate image
+        // Trigger for `onRadicalSchemaRegisterTypes` event.
+        $results = PluginsHelper::triggerPlugins(['system', 'radicalschema'], 'onRadicalSchemaGenerateImage', ['title' => $title, 'image' => $image, 'file' => &$file, 'path' => $local]);
+
+        foreach ($results as $result)
+        {
+            if (!empty($result))
+            {
+                //redirect to image
+                $this->app->redirect($local . '/' . $file . '.jpg', 302);
+            }
         }
 
         // Generate image
@@ -157,12 +183,14 @@ class ImageHelper
         $backgroundWidth          = (int) $this->params->get('image_imagetype_generate_background_width', 1200);
         $backgroundHeight         = (int) $this->params->get('image_imagetype_generate_background_height', 630);
         $backgroundColor          = $this->params->get('image_imagetype_generate_background_color', '#000000');
+        $backgroundOverlay        = $this->params->get('image_imagetype_generate_background_overlay', 'rgba(0, 0, 0, 0.6)');
         $backgroundTextBackground = $this->params->get('image_imagetype_generate_background_text_background', '');
         $backgroundTextColor      = $this->params->get('image_imagetype_generate_background_text_color', '#ffffff');
         $backgroundTextFontSize   = (int) $this->params->get('image_imagetype_generate_background_text_fontsize', 20);
         $backgroundTextMargin     = (int) $this->params->get('image_imagetype_generate_background_text_margin', 10);
         $backgroundTextPadding    = (int) $this->params->get('image_imagetype_generate_background_text_padding', 10);
-        $fontCustom               = $this->params->get('image_imagetype_generate_background_text_font', '');
+        $font                     = $this->params->get('image_imagetype_generate_background_text_font', '');
+        $fontCustom               = $this->params->get('image_imagetype_generate_background_text_font_custom', '');
 
         // Check background type
         if ($backgroundType == 'fill')
@@ -171,20 +199,84 @@ class ImageHelper
             $bg  = $this->hexColorAllocate($img, $backgroundColor);
             imagefilledrectangle($img, 0, 0, $backgroundWidth, $backgroundHeight, $bg);
         }
-        else
+        elseif ($backgroundType == 'static' || $backgroundType == 'current')
         {
-            // If bg image and no image set
-            if (empty($backgroundImage))
+            // Check empty bg or image
+            if (
+                ($backgroundType == 'static' && empty($backgroundImage)) ||
+                ($backgroundType == 'current' && empty($image))
+            )
             {
                 $this->showDefaultImage();
             }
 
+            if ($backgroundType == 'current')
+            {
+                $backgroundImage = str_replace(Uri::root(), '', $image);
+            }
+
+            $rgba            = $this->convertRgba($backgroundOverlay);
             $backgroundImage = JPATH_ROOT . '/' . ltrim($backgroundImage, '/');
-            $img             = imagecreatefromstring(file_get_contents($backgroundImage));
+
+            // Get image
+            $sourceImage = imagecreatefromstring(file_get_contents($backgroundImage));
+
+            // Show default image if not available
+            if ($sourceImage === false)
+            {
+                $this->showDefaultImage();
+            }
+
+            // Create new image
+            $img = imagecreatetruecolor($backgroundWidth, $backgroundHeight);
+
+            // Set opacity
+            imagesavealpha($img, true);
+            $transparentBackground = imagecolorallocatealpha($img, 0, 0, 0, 127); // Полностью прозрачный фон
+            imagefill($img, 0, 0, $transparentBackground);
+
+            // Get original size and resize it
+            $sourceWidth       = imagesx($sourceImage);
+            $sourceHeight      = imagesy($sourceImage);
+            $sourceAspectRatio = $sourceWidth / $sourceHeight;
+            $newAspectRatio    = $backgroundWidth / $backgroundHeight;
+
+            if ($sourceAspectRatio > $newAspectRatio)
+            {
+                // Trim to width
+                $tempHeight = $sourceHeight;
+                $tempWidth  = $sourceHeight * $newAspectRatio;
+                $srcX       = ($sourceWidth - $tempWidth) / 2;
+                $srcY       = 0;
+            }
+            else
+            {
+                // Trim to height
+                $tempWidth  = $sourceWidth;
+                $tempHeight = $sourceWidth / $newAspectRatio;
+                $srcX       = 0;
+                $srcY       = ($sourceHeight - $tempHeight) / 2;
+            }
+
+            // Copy and scale original image to new generated
+            imagecopyresampled(
+                $img, $sourceImage,
+                0, 0, $srcX, $srcY,
+                $backgroundWidth, $backgroundHeight, $tempWidth, $tempHeight
+            );
+
+            // Create overlay
+            $overlay = imagecreatetruecolor($backgroundWidth, $backgroundHeight);
+            imagesavealpha($overlay, true);
+            $transparentOverlay = imagecolorallocatealpha($overlay, $rgba['red'], $rgba['green'], $rgba['blue'], 127 * $rgba['alpha']); // Прозрачность 0.5
+            imagefill($overlay, 0, 0, $transparentOverlay);
+
+            // Set overlay on image
+            imagecopymerge($img, $overlay, 0, 0, 0, 0, $backgroundWidth, $backgroundHeight, $rgba['alpha'] * 100);
         }
 
         $colorForText = $this->hexColorAllocate($img, $backgroundTextColor);
-        $font         = JPATH_ROOT . '/' . implode('/', ['media', 'plg_radicalschema_image', 'fonts', 'roboto.ttf']);
+        $font         = JPATH_ROOT . '/' . implode('/', ['media', 'plg_radicalschema_image', 'fonts', $font]);
 
         // Get custom font
         if (!empty($fontCustom))
@@ -207,7 +299,7 @@ class ImageHelper
         $height = imagesy($img);
 
         $maxWidth          = imagesx($img) - (($backgroundTextMargin + $backgroundTextPadding) * 2);
-        $fontSizeWidthChar = $backgroundTextFontSize / 1.7;
+        $fontSizeWidthChar = $backgroundTextFontSize / 1.5;
         $countForWrap      = (int) ((imagesx($img) - (($backgroundTextMargin + $backgroundTextPadding) * 2)) / $fontSizeWidthChar);
 
         // Set title
@@ -303,6 +395,29 @@ class ImageHelper
     }
 
     /**
+     * Method to convert rgba
+     *
+     * @param   string  $rgba
+     *
+     * @return array
+     *
+     * @since __DEPLOY_VERSION__
+     */
+    private function convertRgba(string $rgba)
+    {
+        $rgba    = trim($rgba, ' ()');
+        $rgba    = str_replace(['rgba', 'rgb', '(', ')', ' '], '', $rgba);
+        $rgbaArr = explode(',', $rgba);
+
+        return [
+            'red'   => $rgbaArr[0],
+            'green' => $rgbaArr[1],
+            'blue'  => $rgbaArr[2],
+            'alpha' => $rgbaArr[3] ?? 0,
+        ];
+    }
+
+    /**
      * If an error occurred during generation, then show the default picture
      *
      * @since __DEPLOY_VERSION__
@@ -337,7 +452,7 @@ class ImageHelper
         // Add subfolder
         if ($this->params->get('image_imagetype_generate_cache_subfolder', 0))
         {
-            $file      = $file ? $file : $this->getCacheFile();
+            $file      = $file ?: $this->getCacheFile();
             $md5path   = md5($file);
             $subfolder = substr($md5path, 0, 2);
             $path      = $path . '/' . $subfolder;
@@ -388,6 +503,12 @@ class ImageHelper
             'id'     => 'INT',
         ];
 
+        // Add lang
+        if (Multilanguage::isEnabled())
+        {
+            $defaulturlparams['lang'] = 'WORD';
+        }
+
         // Use platform defaults if parameter doesn't already exist.
         foreach ($defaulturlparams as $param => $type)
         {
@@ -426,4 +547,52 @@ class ImageHelper
             return $languages[$langCode]->sef;
         }
     }
+
+    /**
+     * Method for save data for cache
+     *
+     * @param   string  $file
+     * @param   array   $data
+     *
+     * @return void
+     *
+     * @since version
+     */
+    public function setData($file = '', $data = [])
+    {
+        $path     = $this->getCachePath($file) . '/json';
+        $pathFull = JPATH_ROOT . '/' . $path;
+
+        if (!file_exists($pathFull))
+        {
+            Folder::create($pathFull);
+        }
+
+        file_put_contents($pathFull . '/' . $file . '.json', (new Registry($data))->toString());
+    }
+
+    /**
+     * Method for get data from cache
+     *
+     * @param   string  $file
+     *
+     * @return array|false
+     *
+     * @since version
+     */
+    public function getData($file = '')
+    {
+        $path     = $this->getCachePath($file) . '/json';
+        $pathFull = JPATH_ROOT . '/' . $path;
+
+        if (!file_exists($pathFull))
+        {
+            return false;
+        }
+
+        $data = file_get_contents($pathFull . '/' . $file . '.json');
+
+        return (new Registry($data))->toArray();
+    }
+
 }

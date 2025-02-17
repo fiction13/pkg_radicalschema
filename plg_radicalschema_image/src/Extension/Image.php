@@ -13,6 +13,7 @@ namespace Joomla\Plugin\RadicalSchema\Image\Extension;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\Component\RadicalSchema\Administrator\Adapter\Adapter;
+use Joomla\Component\RadicalSchema\Administrator\Helper\ParamsHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\PathHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\RadicalSchemaHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\Tree\OGHelper;
@@ -66,7 +67,7 @@ class Image extends Adapter implements SubscriberInterface
 		parent::__construct($subject, $config);
 
 		// Helper
-		$this->helper = new ImageHelper($this->params);
+		$this->helper = new ImageHelper();
 	}
 
 	/**
@@ -148,12 +149,20 @@ class Image extends Adapter implements SubscriberInterface
 			return;
 		}
 
+        $priority = 0.5;
+
+        // Set priority for generated from current og image
+        if (ParamsHelper::getComponentParams()->get('image_imagetype_generate_background') === 'current')
+        {
+            $priority = 1;
+        }
+
 		// Get and set opengraph data
 		$collections = PathHelper::getInstance()->getTypes('meta');
 
 		foreach ($collections as $collection)
 		{
-			$ogData = TypesHelper::execute('meta', $collection, $item);
+			$ogData = TypesHelper::execute('meta', $collection, $item, $priority);
 			OGHelper::getInstance()->addChild('root', $ogData);
 		}
 	}

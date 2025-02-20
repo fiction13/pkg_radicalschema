@@ -157,8 +157,6 @@ class Menu extends Adapter implements SubscriberInterface
             return;
         }
 
-        $item = $this->getItem();
-
         if ($item)
         {
             $this->setMicrodata($item, 0.9);

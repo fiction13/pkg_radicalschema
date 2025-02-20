@@ -14,6 +14,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Menu\AdministratorMenuItem;
 use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\FormHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\ParamsHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\PathHelper;
@@ -79,6 +80,9 @@ class RadicalSchema extends CMSPlugin implements SubscriberInterface
 	{
 		// Trigger for `onRadicalSchemaRegisterTypes` event.
 		PluginsHelper::triggerPlugins(['system', 'radicalschema'], 'onRadicalSchemaRegisterTypes', []);
+
+        // Trigger for `onRadicalSchemaAfterInitialise` event.
+		PluginsHelper::triggerPlugins(['system', 'radicalschema'], 'onRadicalSchemaAfterInitialise', []);
 	}
 
 	/**
@@ -139,6 +143,13 @@ class RadicalSchema extends CMSPlugin implements SubscriberInterface
 				$element = FormHelper::createBoolField('meta_enable_' . $collection, 1);
 				$form->setField($element, null, false, 'meta');
 			}
+
+            // Load languages
+            $plugins = PluginsHelper::getPlugins('radicalschema');
+            foreach ($plugins as $plugin)
+            {
+                PluginsHelper::loadPlugin('radicalschema', $plugin->value);
+            }
 		}
 
 		return true;
@@ -261,18 +272,6 @@ class RadicalSchema extends CMSPlugin implements SubscriberInterface
 					'dashboard' => null,
 					'scope'     => 'default',
 				));
-
-//				// Add config view
-//				$parent->addChild(new AdministratorMenuItem (array(
-//					'title'     => 'COM_RADICALSCHEMA_MENUS_CONFIG',
-//					'type'      => 'component',
-//					'link'      => 'index.php?option=com_config&view=component&component=com_radicalschema',
-//					'element'   => 'com_config',
-//					'class'     => '',
-//					'ajaxbadge' => null,
-//					'dashboard' => null,
-//					'scope'     => 'default',
-//				)));
 
 				/* @var $root AdministratorMenuItem */
 				$root = $children[0]->getParent();

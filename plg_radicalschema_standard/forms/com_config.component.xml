@@ -9,7 +9,7 @@
   -->
 
 <form addfieldprefix="Joomla\Plugin\System\RadicalSchema\Field">
-    <fieldset name="standard" label="PLG_SYSTEM_RADICALSCHEMA_FIELDSET_STANDARD">
+    <fieldset name="standard" label="PLG_RADICALSCHEMA_STANDARD_FIELDSET_STANDARD">
         <field name="standard_enable"
                type="radio"
                default="0"

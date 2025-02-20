@@ -16,7 +16,7 @@
     <authorUrl>https://fictionlabs.ru</authorUrl>
     <copyright>A copyright</copyright>
     <license>GNU General Public License version 2 or later;</license>
-    <version>0.0.1-dev</version>
+    <version>0.0.2-dev</version>
     <description>COM_RADICALSCHEMA_DESCRIPTION</description>
 	<namespace path="src">Joomla\Component\RadicalSchema</namespace>
 	<scriptfile>script.php</scriptfile>

@@ -475,7 +475,8 @@ class ImageHelper
      */
     private function getCacheFile()
     {
-        $file = trim(preg_replace("#\?.*?$#isu", '', $this->app->input->server->get('REQUEST_URI', '', 'raw')), '/#');
+        $app  = Factory::getApplication();
+        $file = trim(preg_replace("#\?.*?$#isu", '', $app->getInput()->server->get('REQUEST_URI', '', 'raw')), '/#');
         $file = str_replace('/', '-', $file);
 
         if (!$file)

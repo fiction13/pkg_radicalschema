@@ -131,6 +131,12 @@ class MappingField extends GroupedlistField
         {
             $groupLabel = Text::_('COM_RADICALSCHEMA_GROUP_' . strtoupper($groupKey));
 
+            if (strpos($groupKey, '.') !== FALSE)
+            {
+                $keyArr = explode('.', $groupKey);
+                $groupLabel = Text::_('COM_RADICALSCHEMA_GROUP_' . strtoupper($keyArr[0])) . ' - ' . ucfirst($keyArr[1]);
+            }
+
             if (empty($group))
             {
                 continue;
@@ -138,13 +144,8 @@ class MappingField extends GroupedlistField
 
             foreach ($group as $label => $option)
             {
-                if (!is_string($label))
-                {
-                    $label = $option;
-                }
-
                 $tmp = [
-                    'text'  => ucfirst(str_replace('_', ' ', $label)),
+                    'text'  => ucfirst(str_replace('_', ' ', $option ?: $label)),
                     'value' => ($groupKey !== 'core' ? $groupKey . '.' : '') . $label
                 ];
 

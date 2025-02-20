@@ -76,12 +76,6 @@ if ($groups)
 {
     foreach ($groups as $group)
     {
-        # TODO Убрать при релизе!!! Только для обратной совместимости v0.2.0 и ниже
-        if (array_search('core.' . $value, array_column($group, 'value')))
-        {
-            $value = 'core.' . $value;
-        }
-
         $key = array_search($value, array_column($group, 'value'));
 
         if ($key !== false)

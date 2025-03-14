@@ -15,7 +15,7 @@
     <authorEmail>info@fictionlabs.ru</authorEmail>
     <authorUrl>https://fictionlabs.ru</authorUrl>
     <packagename>radicalschema</packagename>
-    <version>0.0.2-dev</version>
+    <version>0.0.3-dev</version>
     <description>PKG_RADICALSCHEMA_DESCRIPTION</description>
     <scriptfile>script.php</scriptfile>
 

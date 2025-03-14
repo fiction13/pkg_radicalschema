@@ -99,14 +99,6 @@
                     description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_POST_DESC"/>
 
             <field
-                    name="schema_type_organization_map"
-                    type="text"
-                    default=""
-                    showon="schema_enable_type_organization:1"
-                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_MAP"
-                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_MAP_DESC"/>
-
-            <field
                     name="schema_type_organization_phone"
                     type="text"
                     default=""

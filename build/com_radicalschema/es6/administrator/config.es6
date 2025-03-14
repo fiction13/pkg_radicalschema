@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var button = buttonsContainer.querySelector('button[aria-controls="' + name + '"]');
         buttonsContainer.append(button);
     });
+
+    // Set return
+    let config = Joomla.getOptions('com_radicalschema.config');
+    document.querySelector('input[name="return"]').value = config.return_link;
 })
 
 Joomla.sendForm = (task, validate) => {

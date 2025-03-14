@@ -203,6 +203,8 @@ class Content extends Adapter implements SubscriberInterface
             $fields['core']['images'],
         );
 
+        d($fields, 0);
+
         return $fields;
     }
 

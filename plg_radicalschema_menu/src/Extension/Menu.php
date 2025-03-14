@@ -121,14 +121,15 @@ class Menu extends Adapter implements SubscriberInterface
             return false;
         }
 
-        $fields           = [];
-        $fields['core']   = [
-            'title'
-        ];
-        $fields['params'] = [
-            'page_title',
-            'page_heading',
-            'menu-meta_description'
+        $fields = [
+            'core'   => [
+                'title' => '',
+            ],
+            'params' => [
+                'page_title'            => '',
+                'page_heading'          => '',
+                'menu-meta_description' => '',
+            ]
         ];
 
         return $fields;

@@ -103,7 +103,7 @@ class Organization implements InterfaceType
 
             if ($item->phone)
             {
-                $data['address']['phone'] = $item->phone;
+                $data['address']['telephone'] = $item->phone;
             }
 
             if ($item->contactType)

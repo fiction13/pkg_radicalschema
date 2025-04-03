@@ -144,7 +144,6 @@ class ImageHelper
         // Check hash, title and file
         if ($hash !== md5($title . ':' . $file . ':' . $this->params->get('image_imagetype_generate_secret_key')) || empty($title) || empty($file))
         {
-            d(334);
             $this->showDefaultImage();
         }
 

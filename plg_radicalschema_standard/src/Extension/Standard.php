@@ -122,7 +122,7 @@ class Standard extends Adapter implements SubscriberInterface
         }
         else if ($params->get('standard_image_choice') === 'body')
         {
-            list(, $body) = explode('<body', $this->app->getBody());
+            list(, $body) = explode('<body', Factory::getApplication()->getBody());
             $object->image = ValueHelper::getFirstImage($body);
         }
 

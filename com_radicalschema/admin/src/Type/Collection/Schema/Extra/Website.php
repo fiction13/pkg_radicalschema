@@ -13,9 +13,9 @@ namespace Joomla\Component\RadicalSchema\Administrator\Type\Collection\Schema\Ex
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Uri\Uri;
-use Joomla\Component\RadicalSchema\Administrator\Type\InterfaceType;
+use Joomla\Component\RadicalSchema\Administrator\Type\MicrodataType;
 
-class Website implements InterfaceType
+class Website implements MicrodataType
 {
     /**
      * @var string

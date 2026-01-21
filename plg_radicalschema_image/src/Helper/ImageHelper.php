@@ -13,8 +13,8 @@ namespace Joomla\Plugin\RadicalSchema\Image\Helper;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\File;
+use Joomla\Filesystem\Folder;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\RadicalSchema\Administrator\Helper\ParamsHelper;

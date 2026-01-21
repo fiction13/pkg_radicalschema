@@ -28,24 +28,6 @@ class ParamsHelper
     public static ?Registry $_component = null;
 
     /**
-     * Menu item params.
-     *
-     * @var  Registry[]
-     *
-     * @since  __DEPLOY_VERSION__
-     */
-    public static ?array $_menu = null;
-
-    /**
-     * Menu items ids.
-     *
-     * @var  int[]
-     *
-     * @since  __DEPLOY_VERSION__
-     */
-    public static ?array $_menuItems = null;
-
-    /**
      * Method to get component params.
      *
      * @return   Registry Component params.
@@ -63,31 +45,43 @@ class ParamsHelper
     }
 
     /**
-     * Method to merge params.
-     *
-     * @param   mixed          $params       Params array.
-     * @param   Registry|null  $extraParams  Extra params
-     *
-     * @return array
-     *
-     * @since __DEPLOY_VERSION__
-     */
-    public static function merge($params, Registry $extraParams = null): array
-    {
-        // Prepare params
-        if (!$params instanceof Registry)
-        {
-            $params = new Registry($params);
-        }
+	 * Method to correct merge params.
+	 *
+	 * @param   array  $array  Merging Params array.
+	 *
+	 * @return Registry
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public static function merge(array $array = []): Registry
+	{
+		$result = [];
 
-        $configParams = clone ParamsHelper::getComponentParams();;
+		foreach ($array as $params)
+		{
+			if (!is_array($params))
+			{
+				$params = (new Registry($params))->toArray();
+			}
 
-        // Merge with custom params (etc. category)
-        if ($extraParams)
-        {
-            $configParams->merge($extraParams, true);
-        }
+			foreach (array_keys($params) as $path)
+			{
+				$value = $params[$path];
+				if (!key_exists($path, $result))
+				{
+					$result[$path] = $value;
+				}
+				elseif (is_array($value) && count($result[$path]) > 0)
+				{
+					$result[$path] = $value;
+				}
+				elseif ((string) $value !== '')
+				{
+					$result[$path] = $value;
+				}
+			}
+		}
 
-        return $configParams->merge($params, true)->toArray();
-    }
+		return new Registry($result);
+	}
 }

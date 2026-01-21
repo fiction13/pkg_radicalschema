@@ -12,7 +12,7 @@ namespace Joomla\Component\RadicalSchema\Administrator\Type;
 
 defined('_JEXEC') or die;
 
-interface InterfaceType
+interface MicrodataType
 {
 
 	public function execute($item, $priority);

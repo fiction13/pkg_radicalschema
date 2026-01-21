@@ -144,7 +144,6 @@ class Menu extends Adapter implements SubscriberInterface
      */
     public function onRadicalSchemaProvider()
     {
-
         if (!RadicalSchemaHelper::checkEnable($this->_name, 'schema') && !RadicalSchemaHelper::checkEnable($this->_name, 'meta'))
         {
             return;
@@ -183,7 +182,7 @@ class Menu extends Adapter implements SubscriberInterface
             // Convert parameter fields to objects.
             $registry   = $item->getParams();
             $item       = new Registry($item);
-            $itemParams = clone ParamsHelper::getComponentParams();;
+            $itemParams = clone ParamsHelper::getComponentParams();
 
             // Merge with custom params (etc. category)
             if ($params)
@@ -191,7 +190,7 @@ class Menu extends Adapter implements SubscriberInterface
                 $itemParams->merge($params, true);
             }
 
-            $itemParams = $itemParams->merge($registry, true)->toArray();
+            $itemParams = ParamsHelper::merge([$itemParams, $registry]);
             $item->set('params', $itemParams);
             $this->_items['menu'] = $item;
         }

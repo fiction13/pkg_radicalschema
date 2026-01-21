@@ -157,9 +157,10 @@ class Content extends Adapter implements SubscriberInterface
             return false;
         }
 
-        $fields           = [];
-        $fields['core']   = $this->getItemFromDatabase();
-        $fields['images'] = FormHelper::getFieldsForm('com_content', 'article', 'images');
+        $fields            = [];
+        $fields['core']    = $this->getItemFromDatabase();
+        $fields['images']  = FormHelper::getFieldsForm('com_content', 'article', 'images');
+        $fields['attribs'] = FormHelper::getFieldsForm('com_content', 'article', 'attribs');
 
         // Add text
         $fields['core']['text'] = '';
@@ -201,6 +202,7 @@ class Content extends Adapter implements SubscriberInterface
             $fields['core']['attribs'],
             $fields['core']['urls'],
             $fields['core']['images'],
+            $fields['core']['asset_id']
         );
 
         return $fields;
@@ -267,7 +269,7 @@ class Content extends Adapter implements SubscriberInterface
 
             // Get params
             $item->params = (new Registry($item->params))->toArray();
-			$item->params = ParamsHelper::merge($item->params);
+            $item->params = ParamsHelper::merge($item->params);
 
             // Process the content plugins.
             PluginHelper::importPlugin('system');

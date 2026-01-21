@@ -10,7 +10,7 @@
 
 namespace Joomla\Component\RadicalSchema\Administrator\Extension;
 
-\defined('JPATH_PLATFORM') or die;
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Dispatcher\DispatcherInterface;

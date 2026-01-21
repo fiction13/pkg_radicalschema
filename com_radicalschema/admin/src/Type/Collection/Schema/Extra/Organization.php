@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\RadicalSchema\Administrator\Helper\ValueHelper;
-use Joomla\Component\RadicalSchema\Administrator\Type\InterfaceType;
+use Joomla\Component\RadicalSchema\Administrator\Type\MicrodataType;
 
 /**
  * @package     RadicalSchema\Types\Collections\Schema\Extra
@@ -23,7 +23,7 @@ use Joomla\Component\RadicalSchema\Administrator\Type\InterfaceType;
  *
  * @since       __DEPLOY_VERSION__
  */
-class Organization implements InterfaceType
+class Organization implements MicrodataType
 {
     /**
      * @var string

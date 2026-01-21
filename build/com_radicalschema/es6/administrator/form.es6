@@ -9,11 +9,6 @@
 
 Joomla.sendForm = (task, validate) => {
     let form = document.getElementById('adminForm') || document.querySelector('[name="adminForm"]') || document.querySelector('.form-validate');
-    // if (validate && document.formvalidator.isValid(form)) {
-    //     document.body.appendChild(document.createElement('joomla-core-loader'));
-    // } else if (!validate) {
-    //     document.body.appendChild(document.createElement('joomla-core-loader'));
-    // }
 
     Joomla.submitform(task, form, validate);
 }

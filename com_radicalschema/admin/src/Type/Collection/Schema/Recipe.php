@@ -13,9 +13,9 @@ namespace Joomla\Component\RadicalSchema\Administrator\Type\Collection\Schema;
 defined('_JEXEC') or die;
 
 use Joomla\Component\RadicalSchema\Administrator\Helper\ValueHelper;
-use Joomla\Component\RadicalSchema\Administrator\Type\InterfaceType;
+use Joomla\Component\RadicalSchema\Administrator\Type\MicrodataType;
 
-class Recipe implements InterfaceType
+class Recipe implements MicrodataType
 {
     /**
      * @var string

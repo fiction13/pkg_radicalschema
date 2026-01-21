@@ -14,6 +14,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
@@ -151,7 +152,7 @@ class RadicalSchemaHelper
 		if ($home)
 		{
 			// Get home menu
-			$home = \JLanguageMultilang::isEnabled() ? $menu->getDefault($lang->getTag()) : $menu->getDefault();
+			$home = Multilanguage::isEnabled() ? $menu->getDefault($lang->getTag()) : $menu->getDefault();
 
 			$item       = new \stdClass;
 			$item->name = htmlspecialchars(Text::_('PLG_SYSTEM_RADICALSCHEMA_BREADCRUMBS_HOME'));

@@ -13,9 +13,9 @@ namespace Joomla\Component\RadicalSchema\Administrator\Type\Collection\Schema\Ex
 defined('_JEXEC') or die;
 
 use Joomla\Component\RadicalSchema\Administrator\Helper\RadicalSchemaHelper;
-use Joomla\Component\RadicalSchema\Administrator\Type\InterfaceType;
+use Joomla\Component\RadicalSchema\Administrator\Type\MicrodataType;
 
-class Breadcrumblist implements InterfaceType
+class Breadcrumblist implements MicrodataType
 {
     /**
      * @var string

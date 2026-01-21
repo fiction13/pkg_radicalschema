@@ -194,7 +194,8 @@ abstract class Adapter extends CMSPlugin
 
         foreach ($configFields as $configField)
         {
-            $key = $item->get('params.' . $this->_name . '_schema_' . $configField);
+            $key           = $item->get('params.' . $this->_name . '_schema_' . $configField);
+            $isRegistryKey = !empty($key) && strpos($key, '.') !== false && !preg_match('/\s/', $key);
 
             if ($item->exists($key))
             {
@@ -202,7 +203,7 @@ abstract class Adapter extends CMSPlugin
                 continue;
             }
 
-            $object->{$configField} = $key;
+            $object->{$configField} = !$isRegistryKey ? $key : '';
         }
 
         return $object;
@@ -230,6 +231,7 @@ abstract class Adapter extends CMSPlugin
         foreach ($configFields as $f => $field)
         {
             $key = $item->get('params.' . $field['name']);
+            $isRegistryKey = !empty($key) && strpos($key, '.') !== false && !preg_match('/\s/', $key);
 
             if ($item->exists($key))
             {
@@ -237,7 +239,7 @@ abstract class Adapter extends CMSPlugin
                 continue;
             }
 
-            $object->{$f} = $key;
+            $object->{$f} = !$isRegistryKey ? $key : '';
         }
 
         return $object;

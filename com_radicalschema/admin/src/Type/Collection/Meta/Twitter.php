@@ -13,9 +13,9 @@ namespace Joomla\Component\RadicalSchema\Administrator\Type\Collection\Meta;
 defined('_JEXEC') or die;
 
 use Joomla\Component\RadicalSchema\Administrator\Helper\ValueHelper;
-use Joomla\Component\RadicalSchema\Administrator\Type\InterfaceType;
+use Joomla\Component\RadicalSchema\Administrator\Type\MicrodataType;
 
-class Twitter implements InterfaceType
+class Twitter implements MicrodataType
 {
     /**
      * @var string

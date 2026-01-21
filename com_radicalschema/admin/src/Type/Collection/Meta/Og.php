@@ -14,9 +14,9 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\RadicalSchema\Administrator\Helper\ValueHelper;
-use Joomla\Component\RadicalSchema\Administrator\Type\InterfaceType;
+use Joomla\Component\RadicalSchema\Administrator\Type\MicrodataType;
 
-class Og implements InterfaceType
+class Og implements MicrodataType
 {
     /**
      * @var string

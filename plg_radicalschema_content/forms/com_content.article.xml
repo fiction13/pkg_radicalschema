@@ -14,7 +14,8 @@
             <fieldset name="radicalschema_schema" label="COM_RADICALSCHEMA_FIELDSET_SCHEMA_LABEL">
                 <field type="note"
                        name="radicalschema_schema_note"
-                       class="alert alert-info w-100"
+                       class="card text-white card-body bg-secondary w-100"
+                       heading="div"
                        description="COM_RADICALSCHEMA_PARAM_NOTE_DESCRIPTION"
                 />
 
@@ -29,7 +30,8 @@
             <fieldset name="radicalschema_meta" label="COM_RADICALSCHEMA_FIELDSET_META_LABEL">
                 <field type="note"
                        name="radicalschema_meta_note"
-                       class="alert alert-info w-100"
+                       class="card text-white card-body bg-secondary w-100"
+                       heading="div"
                        description="COM_RADICALSCHEMA_PARAM_NOTE_DESCRIPTION"
                 />
             </fieldset>

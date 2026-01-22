@@ -25,7 +25,8 @@
 
             <field type="note"
                    name="content_schema_note"
-                   class="alert alert-info w-100"
+                   class="card text-white card-body bg-secondary w-100"
+                   heading="div"
                    label="COM_RADICALSCHEMA_PARAM_SPACER_SCHEMA"
                    description="COM_RADICALSCHEMA_PARAM_SPACER_SCHEMA_DESC"
                    showon="content_schema_enable:1"
@@ -53,7 +54,8 @@
 
             <field type="note"
                    name="content_meta_note"
-                   class="alert alert-info w-100"
+                   class="card text-white card-body bg-secondary w-100"
+                   heading="div"
                    label="COM_RADICALSCHEMA_PARAM_SPACER_META"
                    description="COM_RADICALSCHEMA_PARAM_SPACER_META_DESC"
                    showon="content_schema_enable:1"

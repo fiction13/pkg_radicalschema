@@ -62,7 +62,8 @@
         <fieldset name="image_image" label="PLG_RADICALSCHEMA_RADICALSCHEMA_FIELDSET_IMAGE_GENERATION">
             <field type="note"
                    name="image_image_note"
-                   class="alert alert-info w-100"
+                   class="card text-white card-body bg-secondary w-100"
+                   heading="div"
                    label="PLG_RADICALSCHEMA_IMAGE_PARAM_NOTE_ENABLE"
                    description="PLG_RADICALSCHEMA_IMAGE_PARAM_NOTE_ENABLE_DESC"
                    showon="image_enable!:1"

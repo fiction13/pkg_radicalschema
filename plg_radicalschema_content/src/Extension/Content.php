@@ -265,11 +265,12 @@ class Content extends Adapter implements SubscriberInterface
             $item->fields = ContentHelper::getFields($item);
 
             // Get attribs
-            $item->attribs = (new Registry($item->attribs))->toArray();
+            $item->attribs = (new Registry($item->attribs));
+            $item->attribs = ParamsHelper::getItemParams($item->attribs)->toArray();
 
             // Get params
-            $item->params = (new Registry($item->params))->toArray();
-            $item->params = ParamsHelper::merge($item->params);
+            $item->params = (new Registry($item->params));
+            $item->params = ParamsHelper::getItemParams($item->params)->toArray();
 
             // Process the content plugins.
             PluginHelper::importPlugin('system');

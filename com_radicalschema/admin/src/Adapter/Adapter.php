@@ -127,7 +127,7 @@ abstract class Adapter extends CMSPlugin
         {
             $this->_items[$id] = $this->getItemFromDatabase($id);
             $item              = $this->_items[$id];
-            $item['params']    = ParamsHelper::merge($item['attribs'] ?? $item['params'], $params);
+            $item['params']    = ParamsHelper::getItemParams($item['attribs'] ?? $item['params']);
 
             $this->_items[$id] = new Registry($item);
         }

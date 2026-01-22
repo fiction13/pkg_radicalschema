@@ -28,6 +28,15 @@ class ParamsHelper
     public static ?Registry $_component = null;
 
     /**
+     * Item Params.
+     *
+     * @var  Registry|null
+     *
+     * @since  __DEPLOY_VERSION__
+     */
+    public static ?Registry $_item = null;
+
+    /**
      * Method to get component params.
      *
      * @return   Registry Component params.
@@ -45,43 +54,43 @@ class ParamsHelper
     }
 
     /**
-	 * Method to correct merge params.
-	 *
-	 * @param   array  $array  Merging Params array.
-	 *
-	 * @return Registry
-	 *
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static function merge(array $array = []): Registry
-	{
-		$result = [];
+     * Method to get component params.
+     *
+     * @return   Registry Component params.
+     *
+     * @since  __DEPLOY_VERSION__
+     */
+    public static function getItemParams(Registry $params): Registry
+    {
+        $componentParams = self::getComponentParams();
 
-		foreach ($array as $params)
-		{
-			if (!is_array($params))
-			{
-				$params = (new Registry($params))->toArray();
-			}
+        return self::merge([$componentParams, $params]);
+    }
 
-			foreach (array_keys($params) as $path)
-			{
-				$value = $params[$path];
-				if (!key_exists($path, $result))
-				{
-					$result[$path] = $value;
-				}
-				elseif (is_array($value) && count($result[$path]) > 0)
-				{
-					$result[$path] = $value;
-				}
-				elseif ((string) $value !== '')
-				{
-					$result[$path] = $value;
-				}
-			}
-		}
+    /**
+     * Method to correct merge params.
+     *
+     * @param   array  $array  Merging Params array.
+     *
+     * @return Registry
+     *
+     * @since  __DEPLOY_VERSION__
+     */
+    public static function merge(array $array = []): Registry
+    {
+        $result = new Registry();
 
-		return new Registry($result);
-	}
+        foreach ($array as $params)
+        {
+            // Prepare params
+            if (!$params instanceof Registry)
+            {
+                $params = new Registry($params);
+            }
+
+            $result->merge($params, true);
+        }
+
+        return $result;
+    }
 }

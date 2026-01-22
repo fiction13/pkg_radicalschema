@@ -82,7 +82,7 @@ class Menu extends Adapter implements SubscriberInterface
 
                 if (!$type)
                 {
-                    $type = ParamsHelper::getComponentParams()->get('content_type', '');
+                    $type = ParamsHelper::getComponentParams()->get('menu_type', '');
                 }
 
                 $this->setFormSchemaFields($form, $type, 'radicalschema_schema', 'radicalschema_mapping', ['useglobal' => '1']);
@@ -180,18 +180,11 @@ class Menu extends Adapter implements SubscriberInterface
             $item = Factory::getApplication()->getMenu()->getActive();
 
             // Convert parameter fields to objects.
-            $registry   = $item->getParams();
+            $menuParams = $item->getParams();
             $item       = new Registry($item);
-            $itemParams = clone ParamsHelper::getComponentParams();
 
-            // Merge with custom params (etc. category)
-            if ($params)
-            {
-                $itemParams->merge($params, true);
-            }
-
-            $itemParams = ParamsHelper::merge([$itemParams, $registry]);
-            $item->set('params', $itemParams);
+            $itemParams = ParamsHelper::getItemParams($menuParams);
+            $item->set('params', $itemParams->toArray());
             $this->_items['menu'] = $item;
         }
 

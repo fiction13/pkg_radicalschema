@@ -134,6 +134,8 @@ class Content extends Adapter implements SubscriberInterface
                     $type = ParamsHelper::getComponentParams()->get('content_type');
                 }
 
+                if (empty($type)) return true;
+
                 $this->setFormSchemaFields($form, $type, 'radicalschema_schema', 'radicalschema_mapping', ['useglobal' => '1']);
             }
         }

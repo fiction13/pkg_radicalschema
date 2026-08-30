@@ -119,7 +119,7 @@ abstract class Adapter extends CMSPlugin
      * @throws  \Exception on database error.
      * @since   __DEPLOY_VERSION__
      */
-    protected function getItem(Registry $params = null)
+    protected function getItem(?Registry $params = null)
     {
         $id = (int) Factory::getApplication()->getInput()->get('id', 0);
 

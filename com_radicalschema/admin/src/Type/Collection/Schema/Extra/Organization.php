@@ -41,10 +41,7 @@ class Organization implements MicrodataType
      */
     public function execute($item, $priority)
     {
-        if (is_array($item))
-        {
-            $item = (object) $item;
-        }
+        $item = (object) array_merge($this->getConfig(false), ['phone' => '', 'contactType' => ''], (array) $item);
 
         $data = [
             'uid'      => $this->uid,
@@ -103,12 +100,12 @@ class Organization implements MicrodataType
 
             if ($item->phone)
             {
-                $data['address']['telephone'] = $item->phone;
+                $data['contactPoint']['telephone'] = $item->phone;
             }
 
             if ($item->contactType)
             {
-                $data['address']['contactType'] = $item->contactType;
+                $data['contactPoint']['contactType'] = $item->contactType;
             }
         }
 

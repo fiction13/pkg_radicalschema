@@ -122,19 +122,17 @@ class Content extends Adapter implements SubscriberInterface
             }
 
             // Check and set schema fields
-            if (RadicalSchemaHelper::checkEnable($this->_name, 'meta'))
+            if (RadicalSchemaHelper::checkEnable($this->_name, 'schema'))
             {
                 $form->loadFile('com_content.article');
 
-                $data = new Registry($data);
-                $type = $data->get('attribs.content_type', '');
+                // On save $data is empty - type is taken from the posted form (see #21)
+                $type = $this->getFormSchemaType($data, 'attribs');
 
-                if (!$type)
+                if (empty($type))
                 {
-                    $type = ParamsHelper::getComponentParams()->get('content_type');
+                    return true;
                 }
-
-                if (empty($type)) return true;
 
                 $this->setFormSchemaFields($form, $type, 'radicalschema_schema', 'radicalschema_mapping', ['useglobal' => '1']);
             }
@@ -180,7 +178,12 @@ class Content extends Adapter implements SubscriberInterface
             'number',
             'checkbox',
             'checkboxes',
-            'tel'
+            'tel',
+            'radio',
+            'range',
+            'url',
+            'calendar',
+            'sql'
         ];
 
         $contentFields = FieldsHelper::getFields('com_content.article');
@@ -268,11 +271,11 @@ class Content extends Adapter implements SubscriberInterface
 
             // Get attribs
             $item->attribs = (new Registry($item->attribs));
-            $item->attribs = ParamsHelper::getItemParams($item->attribs)->toArray();
+            $item->attribs = ParamsHelper::getItemParams($item->attribs, $this->_name)->toArray();
 
             // Get params
             $item->params = (new Registry($item->params));
-            $item->params = ParamsHelper::getItemParams($item->params)->toArray();
+            $item->params = ParamsHelper::getItemParams($item->params, $this->_name)->toArray();
 
             // Process the content plugins.
             PluginHelper::importPlugin('system');

@@ -326,4 +326,80 @@ class ValueHelper
 
 		return is_object(json_decode($string ?? ''));
 	}
+
+	/**
+	 * Converts a raw price or rating value (e.g. "1 200,50 ₽") to a float.
+	 *
+	 * @param   mixed  $value  Raw value.
+	 *
+	 * @return  float|null  Number or null when the value is empty or not numeric.
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public static function prepareNumber($value): ?float
+	{
+		if (is_array($value) || is_object($value))
+		{
+			$value = reset($value);
+		}
+
+		if ($value === null || $value === '' || $value === false)
+		{
+			return null;
+		}
+
+		if (is_int($value) || is_float($value))
+		{
+			return (float) $value;
+		}
+
+		// Strip tags, spaces (incl. non-breaking) and currency symbols
+		$value = strip_tags((string) $value);
+		$value = preg_replace('/[\s\x{00A0}\x{202F}]+/u', '', $value);
+		$value = str_replace(',', '.', $value);
+		$value = preg_replace('/[^0-9.\-]/', '', $value);
+
+		// Keep only the last dot as decimal separator ("1.200.50" -> "1200.50")
+		if (substr_count($value, '.') > 1)
+		{
+			$lastDot = strrpos($value, '.');
+			$value   = str_replace('.', '', substr($value, 0, $lastDot)) . substr($value, $lastDot);
+		}
+
+		return is_numeric($value) ? (float) $value : null;
+	}
+
+	/**
+	 * Converts a language tag to the Open Graph locale format ("en-GB" -> "en_GB").
+	 * "*" (all languages) or empty value gives the current site language.
+	 *
+	 * @param   mixed  $value  Language tag.
+	 *
+	 * @return  string
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public static function prepareLocale($value): string
+	{
+		$value = is_scalar($value) ? trim((string) $value) : '';
+
+		if ($value === '' || $value === '*')
+		{
+			try
+			{
+				$value = Factory::getApplication()->getLanguage()->getTag();
+			}
+			catch (\Throwable $e)
+			{
+				return '';
+			}
+		}
+
+		if (!preg_match('/^([a-z]{2,3})(?:[-_]([a-z]{2}))?$/i', $value, $m))
+		{
+			return '';
+		}
+
+		return strtolower($m[1]) . (!empty($m[2]) ? '_' . strtoupper($m[2]) : '');
+	}
 }

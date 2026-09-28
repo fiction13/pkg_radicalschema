@@ -42,6 +42,9 @@ class Twitter implements MicrodataType
         $data['twitter:site']        = $item->site ?? '';
         $data['twitter:creator']     = $item->creator ?? '';
         $data['twitter:image']       = ValueHelper::prepareLink($item->image);
+        $data['twitter:image:alt']   = !empty($item->image) && !empty($item->image_alt) && \is_scalar($item->image_alt)
+            ? htmlspecialchars(trim(strip_tags((string) $item->image_alt)))
+            : '';
         $data['priority']            = $priority;
 
         return $data;
@@ -62,6 +65,7 @@ class Twitter implements MicrodataType
             'title'       => '',
             'description' => '',
             'image'       => '',
+            'image_alt'   => '',
         ];
 
         if ($addUid)

@@ -114,6 +114,36 @@
                     label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_CONTACT_TYPE"
                     description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_CONTACT_TYPE_DESC"/>
 
+            <field
+                    name="schema_type_organization_map"
+                    type="url"
+                    default=""
+                    filter="url"
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_MAP"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_MAP_DESC"/>
+
+            <field
+                    name="schema_type_organization_sameas"
+                    type="subform"
+                    multiple="true"
+                    min="0"
+                    max="30"
+                    buttons="add,remove,move"
+                    layout="joomla.form.field.subform.repeatable-table"
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_SAMEAS"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_SAMEAS_DESC">
+                <form>
+                    <field
+                            name="url"
+                            type="url"
+                            filter="url"
+                            hint="https://t.me/example"
+                            label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_SAMEAS_URL"/>
+                </form>
+            </field>
+
             <field name="schema_enable_type_breadcrumblist"
                    type="radio"
                    default="0"
@@ -127,7 +157,13 @@
         </fieldset>
         <fieldset name="meta" label="COM_RADICALSCHEMA_FIELDSET_GLOBAL_META"
                   addfieldprefix="Joomla\Component\RadicalSchema\Administrator\Field">
-
+            <field name="meta_fb_app_id"
+                   type="text"
+                   default=""
+                   filter="integer"
+                   hint="123456789012345"
+                   label="COM_RADICALSCHEMA_PARAM_META_FB_APP_ID"
+                   description="COM_RADICALSCHEMA_PARAM_META_FB_APP_ID_DESC"/>
         </fieldset>
         <fieldset name="extra" label="COM_RADICALSCHEMA_FIELDSET_GLOBAL_EXTRA">
             <field name="extra_check_current"

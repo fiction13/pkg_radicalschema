@@ -86,7 +86,7 @@ if ($groups)
     }
 }
 
-$attr .= 'data-value="' . ($isCustom ? '_custom_' : $value) . '"';
+$attr .= ' data-value="' . htmlspecialchars($isCustom ? '_custom_' : (string) $value, ENT_COMPAT, 'UTF-8') . '"';
 
 // Create a regular list.
 $html[] = '<div data-radicalschema-mapping-container>';

@@ -21,6 +21,14 @@ use Joomla\Component\RadicalSchema\Administrator\Helper\PluginsHelper;
 class MappingField extends GroupedlistField
 {
     /**
+     * Value that turns off the field in the item (overrides the value from the settings).
+     *
+     * @var    string
+     * @since  __DEPLOY_VERSION__
+     */
+    public const NONE = '_none_';
+
+    /**
      * @var array
      *
      * @since __DEPLOY_VERSION__
@@ -111,7 +119,14 @@ class MappingField extends GroupedlistField
         if ($this->useglobal)
         {
             $componentParams = ParamsHelper::getComponentParams();
-            $defaultValue    = $componentParams->get($this->fieldname, '');
+            $globalKey       = (string) $this->getAttribute('globalkey', '');
+            $defaultValue    = $globalKey !== '' ? $componentParams->get($globalKey, '') : '';
+
+            // Previous versions: common key for all types
+            if ($defaultValue === '' || $defaultValue === null)
+            {
+                $defaultValue = $componentParams->get($this->fieldname, '');
+            }
 
             if ($defaultValue)
             {
@@ -124,6 +139,12 @@ class MappingField extends GroupedlistField
             }
 
             $result[Text::_('COM_RADICALSCHEMA_GROUP_EXTRA')][0]['text'] = Text::sprintf('COM_RADICALSCHEMA_GROUP_EXTRA_OPTION_DEFAULT', ucfirst($defaultValue));
+
+            // Item form: turn off the value from the settings for this item
+            array_splice($result[Text::_('COM_RADICALSCHEMA_GROUP_EXTRA')], 1, 0, [[
+                'text'  => Text::_('COM_RADICALSCHEMA_GROUP_EXTRA_OPTION_NONE'),
+                'value' => self::NONE,
+            ]]);
         }
 
         // Other groups
@@ -211,8 +232,15 @@ class MappingField extends GroupedlistField
      */
     public function getOptions()
     {
-        // Trigger for `onRadicalSchemaRegisterTypes` event.
-        return PluginsHelper::triggerPlugin('radicalschema', $this->plugin, 'onRadicalSchemaGetMapping', ['plugin' => $this->plugin]);
+        static $cache = [];
+
+        // Trigger for `onRadicalSchemaGetMapping` event (once per plugin: settings form has many mapping fields)
+        if (!isset($cache[$this->plugin]))
+        {
+            $cache[$this->plugin] = PluginsHelper::triggerPlugin('radicalschema', $this->plugin, 'onRadicalSchemaGetMapping', ['plugin' => $this->plugin]);
+        }
+
+        return $cache[$this->plugin];
     }
 
     /**

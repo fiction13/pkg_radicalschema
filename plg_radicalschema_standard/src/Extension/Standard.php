@@ -135,10 +135,8 @@ class Standard extends Adapter implements SubscriberInterface
         // Set locale
         if ($params->get('standard_locale'))
         {
-            $language = Factory::getApplication()->getLanguage();
-            $tag      = $language->getTag();
-            list($locale) = explode('-', $tag);
-            $object->locale = $locale;
+            // Open Graph format: en_GB
+            $object->locale = ValueHelper::prepareLocale(Factory::getApplication()->getLanguage()->getTag());
         }
 
         // Set twitter site

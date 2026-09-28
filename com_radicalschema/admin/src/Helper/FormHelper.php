@@ -129,23 +129,26 @@ class FormHelper
 			$attribs['type'] = self::getFieldType($fieldName);
 		}
 
-		// Add label
-		foreach (['_meta_', '_schema_'] as $fName)
-		{
-			if (strpos($fieldName, $fName) !== false)
-			{
-				$labelArray       = explode($fName, $fieldName);
-				$attribs['label'] = ltrim($fName, '_') . $labelArray[1];
-				break;
-			}
-		}
-
+		// Add label (unless it is given already translated)
 		if (empty($attribs['label']))
 		{
-			$attribs['label'] = $fieldName;
-		}
+			foreach (['_meta_', '_schema_'] as $fName)
+			{
+				if (strpos($fieldName, $fName) !== false)
+				{
+					$labelArray       = explode($fName, $fieldName);
+					$attribs['label'] = ltrim($fName, '_') . $labelArray[1];
+					break;
+				}
+			}
 
-		$attribs['label'] = Text::_('COM_RADICALSCHEMA_PARAM_' . strtoupper($attribs['label']));
+			if (empty($attribs['label']))
+			{
+				$attribs['label'] = $fieldName;
+			}
+
+			$attribs['label'] = Text::_('COM_RADICALSCHEMA_PARAM_' . strtoupper($attribs['label']));
+		}
 
 		// Create simple xml element
 		$element = new \SimpleXMLElement('<field />');

@@ -59,7 +59,7 @@ class Menu extends Adapter implements SubscriberInterface
         $app->getLanguage()->load('com_radicalschema', JPATH_ADMINISTRATOR);
 
         // Check menu edit form
-        if ($app->isClient('administrator') && $formName === 'com_menus.item' && !in_array($data->type, ['heading', 'url', 'separator']))
+        if ($app->isClient('administrator') && $formName === 'com_menus.item' && !in_array((new Registry($data))->get('type', ''), ['heading', 'url', 'separator']))
         {
             // Check and set meta fields
             if (RadicalSchemaHelper::checkEnable($this->_name, 'meta'))
@@ -71,19 +71,13 @@ class Menu extends Adapter implements SubscriberInterface
                 $this->setFormMetaFields($form, 'radicalschema_meta', 'radicalschema_mapping', ['useglobal' => '1']);
             }
 
-            if (RadicalSchemaHelper::checkEnable($this->_name, 'meta'))
+            if (RadicalSchemaHelper::checkEnable($this->_name, 'schema'))
             {
                 // Load config
                 $form->loadFile('com_menus.item');
 
-                // Set schema fields
-                $data = new Registry($data);
-                $type = $data->get('params.' . $this->_name . '_type');
-
-                if (!$type)
-                {
-                    $type = ParamsHelper::getComponentParams()->get('menu_type', '');
-                }
+                // Set schema fields (on save $data is empty - type is taken from the posted form)
+                $type = $this->getFormSchemaType($data, 'params');
 
                 $this->setFormSchemaFields($form, $type, 'radicalschema_schema', 'radicalschema_mapping', ['useglobal' => '1']);
             }
@@ -99,7 +93,7 @@ class Menu extends Adapter implements SubscriberInterface
             $this->setFormMetaFields($form, $this->_name . '_meta', 'radicalschema_mapping', ['showon' => 'menu_meta_enable!:0']);
 
             // Set schema fields
-            $this->setFormSchemaFields($form, '', $this->_name . '_schema', 'radicalschema_mapping', ['showon' => 'menu_schema_enable!:0']);
+            $this->setFormSchemaTypesFields($form, $this->_name . '_schema', 'radicalschema_mapping', ['showon' => 'menu_schema_enable!:0']);
         }
 
         return true;
@@ -183,7 +177,7 @@ class Menu extends Adapter implements SubscriberInterface
             $menuParams = $item->getParams();
             $item       = new Registry($item);
 
-            $itemParams = ParamsHelper::getItemParams($menuParams);
+            $itemParams = ParamsHelper::getItemParams($menuParams, $this->_name);
             $item->set('params', $itemParams->toArray());
             $this->_items['menu'] = $item;
         }

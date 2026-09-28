@@ -12,6 +12,8 @@ namespace Joomla\Component\RadicalSchema\Administrator\Helper;
 
 defined('_JEXEC') or die;
 
+use Joomla\Component\RadicalSchema\Administrator\Type\FormFieldsAwareType;
+
 class TypesHelper
 {
     /**
@@ -84,5 +86,45 @@ class TypesHelper
         $result = $typeClass->getConfig($addUid);
 
         return $result;
+    }
+
+    /**
+     * Returns extra form field definitions of a type (list, subform, showon, etc.).
+     * Config keys without a definition are rendered as mapping fields.
+     *
+     * @param   string  $collectionType  Collection type - schema, meta, extra.
+     * @param   string  $type            Type of metadata.
+     *
+     * @return  array
+     *
+     * @since   __DEPLOY_VERSION__
+     */
+    public static function getFormFields($collectionType, $type): array
+    {
+        if (empty($type))
+        {
+            return [];
+        }
+
+        $className = '\\Joomla\\Component\\RadicalSchema\\Administrator\\Type\\Collection\\' . ucfirst($collectionType) . '\\' . ucfirst($type);
+
+        if (!class_exists($className))
+        {
+            $className = '\\Joomla\\Component\\RadicalSchema\\Administrator\\Type\\Collection\\' . ucfirst($collectionType) . '\\Extra\\' . ucfirst($type);
+
+            if (!class_exists($className))
+            {
+                return [];
+            }
+        }
+
+        $typeClass = new $className();
+
+        if (!$typeClass instanceof FormFieldsAwareType)
+        {
+            return [];
+        }
+
+        return $typeClass->getFormFields();
     }
 }

@@ -44,8 +44,11 @@ class Og implements MicrodataType
         $data['og:image']               = ValueHelper::prepareLink($item->image);
         $data['og:image:width']         = ValueHelper::getImageSize($item->image)->width;
         $data['og:image:height']        = ValueHelper::getImageSize($item->image)->height;
+        $data['og:image:alt']           = !empty($item->image) && !empty($item->image_alt) && \is_scalar($item->image_alt)
+            ? htmlspecialchars(trim(strip_tags((string) $item->image_alt)))
+            : '';
         $data['og:site_name']           = $item->site_name ?? '';
-        $data['og:locale']              = $item->locale ?? '';
+        $data['og:locale']              = !empty($item->locale) ? ValueHelper::prepareLocale($item->locale) : '';
         $data['priority']               = $priority;
 
         return $data;
@@ -66,6 +69,8 @@ class Og implements MicrodataType
             'title'       => '',
             'description' => '',
             'image'       => '',
+            'image_alt'   => '',
+            'locale'      => '',
             'created'     => '',
             'modified'    => '',
             'type'        => ''

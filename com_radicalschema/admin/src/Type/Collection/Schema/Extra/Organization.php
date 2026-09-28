@@ -41,10 +41,7 @@ class Organization implements MicrodataType
      */
     public function execute($item, $priority)
     {
-        if (is_array($item))
-        {
-            $item = (object) $item;
-        }
+        $item = (object) array_merge($this->getConfig(false), ['phone' => '', 'contactType' => ''], (array) $item);
 
         $data = [
             'uid'      => $this->uid,
@@ -52,10 +49,31 @@ class Organization implements MicrodataType
             '@context' => 'https://schema.org',
             '@type'    => 'Organization',
             'url'      => Uri::root(),
-            'logo'     => ValueHelper::prepareLink($item->image),
             'name'     => $item->title,
-            'hasMap'   => $item->hasMap
         ];
+
+        // Logo and image (image is recommended by the Rich Results Test, see #14)
+        if (!empty($item->image))
+        {
+            $data['logo']  = ValueHelper::prepareLink($item->image);
+            $data['image'] = $data['logo'];
+        }
+
+        if (!empty($item->hasMap))
+        {
+            $data['hasMap'] = $item->hasMap;
+        }
+
+        // Social networks and other profiles (see #14)
+        if (!empty($item->sameAs))
+        {
+            $sameAs = array_values(array_unique(array_filter(array_map('trim', (array) $item->sameAs))));
+
+            if ($sameAs)
+            {
+                $data['sameAs'] = $sameAs;
+            }
+        }
 
         if ($item->addressCountry || $item->addressLocality || $item->addressRegion || $item->streetAddress || $item->postalCode || $item->postOfficeBoxNumber)
         {
@@ -103,12 +121,12 @@ class Organization implements MicrodataType
 
             if ($item->phone)
             {
-                $data['address']['telephone'] = $item->phone;
+                $data['contactPoint']['telephone'] = $item->phone;
             }
 
             if ($item->contactType)
             {
-                $data['address']['contactType'] = $item->contactType;
+                $data['contactPoint']['contactType'] = $item->contactType;
             }
         }
 
@@ -136,6 +154,7 @@ class Organization implements MicrodataType
             'postalCode'          => '',
             'postOfficeBoxNumber' => '',
             'hasMap'              => '',
+            'sameAs'              => [],
         ];
 
         if ($addUid)

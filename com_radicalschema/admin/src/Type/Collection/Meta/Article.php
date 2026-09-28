@@ -35,6 +35,19 @@ class Article implements MicrodataType
     {
         $item = (object) array_merge($this->getConfig(), (array) $item);
 
+        // article:* tags only for og:type "article" (not for product, website...)
+        $type = isset($item->type) && \is_scalar($item->type) ? strtolower(trim((string) $item->type)) : '';
+
+        if ($type !== '' && $type !== 'article')
+        {
+            return [
+                'uid'                    => $this->uid,
+                'article:modified_time'  => '',
+                'article:published_time' => '',
+                'priority'               => $priority,
+            ];
+        }
+
         $data['uid']                    = $this->uid;
         $data['article:modified_time']  = isset($item->modified) ? ValueHelper::prepareDate($item->modified) : '';
         $data['article:published_time'] = isset($item->created) ? ValueHelper::prepareDate($item->created) : '';

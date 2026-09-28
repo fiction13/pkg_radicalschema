@@ -35,7 +35,6 @@
             <field type="radicalschema_types"
                    name="menu_type"
                    default=""
-                   onchange="Joomla.sendForm('component.apply');"
                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE"
                    showon="menu_schema_enable:1"
             >

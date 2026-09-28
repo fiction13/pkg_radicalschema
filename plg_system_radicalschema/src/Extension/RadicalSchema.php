@@ -20,6 +20,7 @@ use Joomla\Component\RadicalSchema\Administrator\Helper\ParamsHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\PathHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\PluginsHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\RadicalSchemaHelper;
+use Joomla\Component\RadicalSchema\Administrator\Helper\Tree\OGHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\Tree\SchemaHelper;
 use Joomla\Component\RadicalSchema\Administrator\Helper\TypesHelper;
 use Joomla\Event\SubscriberInterface;
@@ -211,6 +212,7 @@ class RadicalSchema extends CMSPlugin implements SubscriberInterface
                     'hasMap'              => $params->get('schema_type_organization_map'),
                     'phone'               => $params->get('schema_type_organization_phone'),
                     'contactType'         => $params->get('schema_type_organization_contact_type'),
+                    'sameAs'              => array_column((array) $params->get('schema_type_organization_sameas', []), 'url'),
                 ];
 
                 $organization = TypesHelper::execute('schema', 'organization', $organizationData);
@@ -230,6 +232,18 @@ class RadicalSchema extends CMSPlugin implements SubscriberInterface
         // Add Opengraph
         if ($params->get('enable_meta', 1))
         {
+            // Facebook App ID: on all pages
+            $fbAppId = preg_replace('/[^0-9]/', '', (string) $params->get('meta_fb_app_id', ''));
+
+            if ($fbAppId !== '')
+            {
+                OGHelper::getInstance()->addChild('root', [
+                    'uid'       => 'radicalschema.meta.og',
+                    'priority'  => 0.1,
+                    'fb:app_id' => $fbAppId,
+                ]);
+            }
+
             $opengraph = RadicalSchemaHelper::buildOpengraph($body, $params);
         }
 

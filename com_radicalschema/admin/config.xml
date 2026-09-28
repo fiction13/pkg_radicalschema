@@ -114,6 +114,115 @@
                     label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_CONTACT_TYPE"
                     description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_CONTACT_TYPE_DESC"/>
 
+            <field
+                    name="schema_type_organization_map"
+                    type="url"
+                    default=""
+                    filter="url"
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_MAP"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_MAP_DESC"/>
+
+            <field
+                    name="schema_type_organization_sameas"
+                    type="subform"
+                    multiple="true"
+                    min="0"
+                    max="30"
+                    buttons="add,remove,move"
+                    layout="joomla.form.field.subform.repeatable-table"
+                    showon="schema_enable_type_organization:1"
+                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_SAMEAS"
+                    description="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_SAMEAS_DESC">
+                <form>
+                    <field
+                            name="url"
+                            type="url"
+                            filter="url"
+                            hint="https://t.me/example"
+                            label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE_ORGANIZATION_SAMEAS_URL"/>
+                </form>
+            </field>
+
+            <field name="schema_return_policy"
+                   type="list"
+                   default="none"
+                   label="COM_RADICALSCHEMA_PARAM_SCHEMA_RETURN_POLICY"
+                   description="COM_RADICALSCHEMA_PARAM_SCHEMA_RETURN_POLICY_DESC">
+                <option value="none">COM_RADICALSCHEMA_GROUP_EXTRA_OPTION_NO_SELECT</option>
+                <option value="MerchantReturnFiniteReturnWindow">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNPOLICY_FINITE</option>
+                <option value="MerchantReturnUnlimitedWindow">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNPOLICY_UNLIMITED</option>
+                <option value="MerchantReturnNotPermitted">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNPOLICY_NOT_PERMITTED</option>
+                <option value="MerchantReturnLink">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNPOLICY_LINK</option>
+            </field>
+
+            <field name="schema_return_country"
+                   type="text"
+                   default=""
+                   hint="DE, AT"
+                   showon="schema_return_policy:MerchantReturnFiniteReturnWindow,MerchantReturnUnlimitedWindow,MerchantReturnNotPermitted"
+                   label="COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNCOUNTRY"/>
+
+            <field name="schema_return_days"
+                   type="number"
+                   default="14"
+                   min="1"
+                   filter="integer"
+                   showon="schema_return_policy:MerchantReturnFiniteReturnWindow"
+                   label="COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNDAYS"/>
+
+            <field name="schema_return_fees"
+                   type="list"
+                   default="none"
+                   showon="schema_return_policy:MerchantReturnFiniteReturnWindow,MerchantReturnUnlimitedWindow"
+                   label="COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNFEES">
+                <option value="none">COM_RADICALSCHEMA_GROUP_EXTRA_OPTION_NO_SELECT</option>
+                <option value="FreeReturn">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNFEES_FREE</option>
+                <option value="ReturnFeesCustomerResponsibility">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNFEES_CUSTOMER</option>
+                <option value="ReturnShippingFees">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNFEES_SHIPPING</option>
+            </field>
+
+            <field name="schema_return_shipping_fees"
+                   type="text"
+                   default=""
+                   hint="4.90"
+                   showon="schema_return_policy:MerchantReturnFiniteReturnWindow,MerchantReturnUnlimitedWindow[AND]schema_return_fees:ReturnShippingFees"
+                   label="COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNSHIPPINGFEES"/>
+
+            <field name="schema_return_method"
+                   type="list"
+                   default="none"
+                   showon="schema_return_policy:MerchantReturnFiniteReturnWindow,MerchantReturnUnlimitedWindow"
+                   label="COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNMETHOD">
+                <option value="none">COM_RADICALSCHEMA_GROUP_EXTRA_OPTION_NO_SELECT</option>
+                <option value="ReturnByMail">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNMETHOD_MAIL</option>
+                <option value="ReturnInStore">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNMETHOD_STORE</option>
+                <option value="ReturnAtKiosk">COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNMETHOD_KIOSK</option>
+            </field>
+
+            <field name="schema_refund_type"
+                   type="list"
+                   default="none"
+                   showon="schema_return_policy:MerchantReturnFiniteReturnWindow,MerchantReturnUnlimitedWindow"
+                   label="COM_RADICALSCHEMA_PARAM_SCHEMA_REFUNDTYPE">
+                <option value="none">COM_RADICALSCHEMA_GROUP_EXTRA_OPTION_NO_SELECT</option>
+                <option value="FullRefund">COM_RADICALSCHEMA_PARAM_SCHEMA_REFUNDTYPE_FULL</option>
+                <option value="ExchangeRefund">COM_RADICALSCHEMA_PARAM_SCHEMA_REFUNDTYPE_EXCHANGE</option>
+                <option value="StoreCreditRefund">COM_RADICALSCHEMA_PARAM_SCHEMA_REFUNDTYPE_STORECREDIT</option>
+            </field>
+
+            <field name="schema_return_link"
+                   type="modal_menu"
+                   addfieldprefix="Joomla\Component\Menus\Administrator\Field"
+                   default=""
+                   clientid="0"
+                   select="true"
+                   edit="true"
+                   clear="true"
+                   disable="separator,heading"
+                   showon="schema_return_policy:MerchantReturnFiniteReturnWindow,MerchantReturnUnlimitedWindow,MerchantReturnNotPermitted,MerchantReturnLink"
+                   label="COM_RADICALSCHEMA_PARAM_SCHEMA_RETURNLINK"/>
+
             <field name="schema_enable_type_breadcrumblist"
                    type="radio"
                    default="0"
@@ -127,7 +236,13 @@
         </fieldset>
         <fieldset name="meta" label="COM_RADICALSCHEMA_FIELDSET_GLOBAL_META"
                   addfieldprefix="Joomla\Component\RadicalSchema\Administrator\Field">
-
+            <field name="meta_fb_app_id"
+                   type="text"
+                   default=""
+                   filter="integer"
+                   hint="123456789012345"
+                   label="COM_RADICALSCHEMA_PARAM_META_FB_APP_ID"
+                   description="COM_RADICALSCHEMA_PARAM_META_FB_APP_ID_DESC"/>
         </fieldset>
         <fieldset name="extra" label="COM_RADICALSCHEMA_FIELDSET_GLOBAL_EXTRA">
             <field name="extra_check_current"

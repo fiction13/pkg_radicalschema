@@ -7,32 +7,51 @@
  * @link      https://fictionlabs.ru/
  */
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('[data-radicalschema-mapping-container]').forEach((container) => {
-		let select = container.querySelector('select');
-		let input  = container.querySelector('input');
+(() => {
+	const init = (root) => {
+		root.querySelectorAll('[data-radicalschema-mapping-container]').forEach((container) => {
+			// Skip already initialized containers
+			if (container.dataset.radicalschemaInit) {
+				return;
+			}
 
-		select.addEventListener('change', function (event) {
-			let value = event.target.value;
+			container.dataset.radicalschemaInit = '1';
 
-			input.type = 'hidden';
+			let select = container.querySelector('select');
+			let input  = container.querySelector('input');
 
-			if (value === '_noselect_')
-			{
-				input.value = '';
-			} else if (value === '_custom_') {
-				input.type = 'text';
-				input.value = '';
+			if (!select || !input) {
+				return;
+			}
+
+			select.addEventListener('change', function (event) {
+				let value = event.target.value;
+
+				input.type = 'hidden';
+
+				if (value === '_noselect_') {
+					input.value = '';
+				} else if (value === '_custom_') {
+					input.type = 'text';
+					input.value = '';
+				} else {
+					input.value = event.target.value;
+				}
+			});
+
+			if (!input.value) {
+				select.value = '_noselect_';
+				input.type = 'hidden';
 			} else {
-				input.value = event.target.value;
+				select.value = select.getAttribute('data-value');
 			}
 		});
+	};
 
-		if (!input.value) {
-			select.value = '_noselect_';
-			input.type = 'hidden';
-		} else {
-			select.value = select.getAttribute('data-value');
-		}
-    });
-});
+	document.addEventListener('DOMContentLoaded', () => init(document));
+
+	// New rows of repeatable subform (AggregateOffer prices)
+	document.addEventListener('subform-row-add', (event) => {
+		init(event.detail && event.detail.row ? event.detail.row : document);
+	});
+})();

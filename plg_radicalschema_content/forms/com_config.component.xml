@@ -35,7 +35,6 @@
             <field type="radicalschema_types"
                    name="content_type"
                    default=""
-                   onchange="Joomla.sendForm('component.apply');"
                    showon="content_schema_enable:1"
                    label="COM_RADICALSCHEMA_PARAM_SCHEMA_TYPE">
             </field>

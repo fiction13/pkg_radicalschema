@@ -12,6 +12,7 @@ namespace Joomla\Component\RadicalSchema\Administrator\Type\Collection\Schema\Ex
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\RadicalSchema\Administrator\Type\MicrodataType;
 
@@ -45,6 +46,14 @@ class Website implements MicrodataType
             '@type'    => 'WebSite',
             'url'      => Uri::root(),
         ];
+
+        // Site name (used by Google for the site name in search results)
+        $siteName = Factory::getApplication()->get('sitename');
+
+        if (!empty($siteName))
+        {
+            $data['name'] = $siteName;
+        }
 
         return $data;
     }

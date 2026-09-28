@@ -326,4 +326,38 @@ class ValueHelper
 
 		return is_object(json_decode($string ?? ''));
 	}
+
+	/**
+	 * Converts a language tag to the Open Graph locale format ("en-GB" -> "en_GB").
+	 * "*" (all languages) or empty value gives the current site language.
+	 *
+	 * @param   mixed  $value  Language tag.
+	 *
+	 * @return  string
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public static function prepareLocale($value): string
+	{
+		$value = is_scalar($value) ? trim((string) $value) : '';
+
+		if ($value === '' || $value === '*')
+		{
+			try
+			{
+				$value = Factory::getApplication()->getLanguage()->getTag();
+			}
+			catch (\Throwable $e)
+			{
+				return '';
+			}
+		}
+
+		if (!preg_match('/^([a-z]{2,3})(?:[-_]([a-z]{2}))?$/i', $value, $m))
+		{
+			return '';
+		}
+
+		return strtolower($m[1]) . (!empty($m[2]) ? '_' . strtoupper($m[2]) : '');
+	}
 }

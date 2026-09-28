@@ -122,7 +122,7 @@ class Content extends Adapter implements SubscriberInterface
             }
 
             // Check and set schema fields
-            if (RadicalSchemaHelper::checkEnable($this->_name, 'meta'))
+            if (RadicalSchemaHelper::checkEnable($this->_name, 'schema'))
             {
                 $form->loadFile('com_content.article');
 
@@ -180,7 +180,12 @@ class Content extends Adapter implements SubscriberInterface
             'number',
             'checkbox',
             'checkboxes',
-            'tel'
+            'tel',
+            'radio',
+            'range',
+            'url',
+            'calendar',
+            'sql'
         ];
 
         $contentFields = FieldsHelper::getFields('com_content.article');

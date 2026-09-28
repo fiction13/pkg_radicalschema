@@ -57,10 +57,10 @@ final class PathHelper
     {
         if (is_null(static::$instance))
         {
-            $instance = new self();
+            static::$instance = new self();
         }
 
-        return $instance;
+        return static::$instance;
     }
 
     /**

@@ -59,7 +59,7 @@ class Menu extends Adapter implements SubscriberInterface
         $app->getLanguage()->load('com_radicalschema', JPATH_ADMINISTRATOR);
 
         // Check menu edit form
-        if ($app->isClient('administrator') && $formName === 'com_menus.item' && !in_array($data->type, ['heading', 'url', 'separator']))
+        if ($app->isClient('administrator') && $formName === 'com_menus.item' && !in_array((new Registry($data))->get('type', ''), ['heading', 'url', 'separator']))
         {
             // Check and set meta fields
             if (RadicalSchemaHelper::checkEnable($this->_name, 'meta'))
@@ -71,7 +71,7 @@ class Menu extends Adapter implements SubscriberInterface
                 $this->setFormMetaFields($form, 'radicalschema_meta', 'radicalschema_mapping', ['useglobal' => '1']);
             }
 
-            if (RadicalSchemaHelper::checkEnable($this->_name, 'meta'))
+            if (RadicalSchemaHelper::checkEnable($this->_name, 'schema'))
             {
                 // Load config
                 $form->loadFile('com_menus.item');
